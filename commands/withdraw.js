@@ -26,39 +26,81 @@ module.exports = {
       
  else if(!currency){
       message.reply("Give what currency you want to withdraw");
-     };
+     }
     
  if(currency == "doge"){
    if(c_doge >= amount){
 db.subtract(`doge.${message.author.id}`, amount);
-      message.channel.send(`$tip <@${message.author.id}> ${amount} doge`)
+db.add(`w_doge.${message.author.id}`, amount);
+      message.channel.send(`$tip <@${message.author.id}> ${amount} doge`);
       }
   else if(c_doge < amount){
-      message.reply("You cant withdraw");
+      message.reply(process.env.ERROR);
       }
  /* else if(c_doge == amount){
     message.reply("You cant withdraw\nTry not to withdraw the exact amount")
     } */
       }
+if(currency == "DOGE"){
+   if(c_doge >= amount){
+db.subtract(`doge.${message.author.id}`, amount);
+db.add(`w_doge.${message.author.id}`, amount);
+      message.channel.send(`$tip <@${message.author.id}> ${amount} doge`);
+      }
+  else if(c_doge < amount){
+      message.reply(process.env.ERROR);
+      }
+ /* else if(c_doge == amount){
+    message.reply("You cant withdraw\nTry not to withdraw the exact amount")
+    } */
+      }
+ 
   if(currency == "sto"){
       if(c_sto >= amount){
 db.subtract(`sto.${message.author.id}`, amount);
-      message.channel.send(`$tip <@${message.author.id}> ${amount} sto`)
+db.add(`w_sto.${message.author.id}`, amount);
+      message.channel.send(`$tip <@${message.author.id}> ${amount} sto`);
         }
       if(c_sto < amount){
-        message.reply("You cant withdraw");
+        message.reply(process.env.ERROR);
         }
+      }
+if(currency == "STO"){
+   if(c_sto >= amount){
+db.subtract(`sto.${message.author.id}`, amount);
+db.add(`w_sto.${message.author.id}`, amount);
+      message.channel.send(`$tip <@${message.author.id}> ${amount} sto`)
+      }
+  else if(c_sto < amount){
+      message.reply(process.env.ERROR);
+      }
+ /* else if(c_doge == amount){
+    message.reply("You cant withdraw\nTry not to withdraw the exact amount")
+    } */
       }
    if(currency == "kanda"){
      if(c_kanda >= amount){       db.subtract(`kanda.${message.author.id}`, amount);
+     db.add(`w_kanda.${message.author.id}`, amount)
       message.channel.send(`$tip <@${message.author.id}> ${amount} kanda`)
        }
      if(c_kanda < amount ){
-       message.reply("you cant withdraw");
+       message.reply(process.env.ERROR);
        }
     
       }
-    
+if(currency == "KANDA"){
+   if(c_kanda >= amount){
+db.subtract(`kanda.${message.author.id}`, amount);
+db.add(`w_kanda.${message.author.id}`, amount)
+      message.channel.send(`$tip <@${message.author.id}> ${amount} kanda`)
+      }
+  else if(c_kanda < amount){
+      message.reply(process.env.ERROR);
+      }
+ /* else if(c_doge == amount){
+    message.reply("You cant withdraw\nTry not to withdraw the exact amount")
+    } */
+      }
     
     }
   }

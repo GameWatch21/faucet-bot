@@ -5,7 +5,7 @@ module.exports = {
   name: "tip",
   description: "Tip other users currency",
   execute(message, args){
-    function getUser(mention) {
+    /*function getUser(mention) {
     if (!mention) return;
     if (mention.startsWith("<@") && mention.endsWith(">")) {
       var mention = mention.slice(2, -1);
@@ -14,8 +14,9 @@ module.exports = {
       }
       return message.guild.member(message.guild.members.get(mention));
     }
-}
-     const user = getUser(args[0]) || message.member;
+} */
+     const user = message.mentions.users.first();
+     /*getUser(args[0]) || message.member;*/
    /* function getUser(mention) {
     if (!mention) return;
     if (mention.startsWith("<@") && mention.endsWith(">")) {
@@ -39,8 +40,8 @@ module.exports = {
     
     if (!user)
       return message.reply("**You need to mention a user for this command!**");
-    if (user.user.bot)
-      return message.send("**You cant tip other bot!**");
+    if (user.bot)
+      return message.channel.send("**You cant tip other bot!**");
     if (user.id === message.author.id)
       return message.reply("**You cannot tip yourself!**");
     
@@ -53,14 +54,67 @@ module.exports = {
       return message.reply("**You don't have enough money for this command!**");
      if(c_doge >= amount){
        message.channel.send(
-      `${message.author.username} tip ${user.user.username} ${emoji_doge}${amount} DOGE`
+      `<@${message.author.id}> sent <@${user.id}> ${emoji_doge}${amount} DOGE`
     );
-    db.subtract(`money.${message.author.id}`, amount);
-    db.add(`money.${user.id}`, amount);
+    db.subtract(`doge.${message.author.id}`, amount);
+    db.add(`doge.${user.id}`, amount);
        }
       }
-    
-    
+if(currency == "DOGE"){
+    if (c_doge < amount)
+      return message.reply("**You don't have enough money for this command!**");
+     if(c_doge >= amount){
+       message.channel.send(
+      `<@${message.author.id}> sent <@${user.id}> ${emoji_doge}${amount} DOGE`
+    );
+    db.subtract(`doge.${message.author.id}`, amount);
+    db.add(`doge.${user.id}`, amount);
+       }
+      }
+if(currency == "sto"){
+    if (c_sto < amount)
+      return message.reply("**You don't have enough money for this command!**");
+     if(c_sto >= amount){
+       message.channel.send(
+      `<@${message.author.id}> sent <@${user.id}> ${emoji_sto}${amount} STO`
+    );
+    db.subtract(`sto.${message.author.id}`, amount);
+    db.add(`sto.${user.id}`, amount);
+       }
+      }
+if(currency == "STO"){
+    if (c_sto < amount)
+      return message.reply("**You don't have enough money for this command!**");
+     if(c_sto >= amount){
+       message.channel.send(
+      `<@${message.author.id}> sent <@${user.id}> ${emoji_sto}${amount} STO`
+    );
+    db.subtract(`sto.${message.author.id}`, amount);
+    db.add(`sto.${user.id}`, amount);
+       }
+      }
+if(currency == "KANDA"){
+    if (c_kanda < amount)
+      return message.reply("**You don't have enough money for this command!**");
+     if(c_kanda >= amount){
+       message.channel.send(
+      `<@${message.author.id}> sent <@${user.id}> ${emoji_kanda}${amount} KANDA`
+    );
+    db.subtract(`kanda.${message.author.id}`, amount);
+    db.add(`kanda.${user.id}`, amount);
+       }
+      }
+if(currency == "kanda"){
+    if (c_kanda < amount)
+      return message.reply("**You don't have enough money for this command!**");
+     if(c_kanda >= amount){
+       message.channel.send(
+      `<@${message.author.id}> sent <@${user.id}> ${emoji_kanda}${amount} KANDA`
+    );
+    db.subtract(`kanda.${message.author.id}`, amount);
+    db.add(`kanda.${user.id}`, amount);
+       }
+}
     
     }
   }

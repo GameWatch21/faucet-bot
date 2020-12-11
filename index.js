@@ -1,14 +1,24 @@
+/*const keep_alive = require('./keep_alive.js'); */
+
+const express = require('express');
+const app = express();
+const port = 8080;
+
+app.get('/', (req, res) => res.send('Hello World!'));
+
+app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
+
 const http = require("http");
-const port = 3000;
+/* const port = 3000; */
 const url = require('url');
-const fetch = require('node-fetch');
+/* const fetch = require('node-fetch'); */
 const fs = require("fs");
 const Discord = require("discord.js");
 const { prefix , token } = require("./config.json");
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
-http.createServer((req, res) => {
+/* http.createServer((req, res) => {
 	let responseCode = 404;
 	let content = '404 Error';
   let content2 = '404 Error';
@@ -58,7 +68,7 @@ http.createServer((req, res) => {
 	res.end();
 })
 	.listen(port);
-
+*/
 const commandFiles = fs
   .readdirSync("./commands")
   .filter(file => file.endsWith(".js"));
@@ -71,17 +81,21 @@ client.once("ready", () => {
   console.log(
     "Yup im online, and im ready to work"
     );
-  client.user.setActivity(`s!help | ${client.guilds.size} servers.`, {
+  client.user.setActivity(`f!help | Claim your faucet with f!faucet`), {
     type: "playing"
-    });
- /* }
-client.once =
-  ("ready",
-  () => {
-    console.log("Ah, it's time for work"); */
+    };
   }); 
 
 client.on("message", message => {
+ /*if (message.mentions(client.user)) {
+    const embed = new Discord.MessageEmbed()
+    .setTitle(`Hello ${message.author.username} 👋`)
+    .setDescription("Hello, I'm a Faucet bot, a bot dedicated to serving you and giving you a rewards!\nMy prefix is `f!`. You can use `f!help` to get started with the bot. \nStart claiming crpyto with `f!faucet`\nAnd last, have Fun!")
+    .setColor("RANDOM")
+    .setFooter("A Welcome Message");
+    message.channel.send(embed);
+  } */
+  
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
   const args = message.content

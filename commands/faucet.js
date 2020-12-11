@@ -25,20 +25,44 @@ module.exports = {
     }
     
     if(!args[0]){
-      message.reply("These are the coin you can claim `doge` , `kanda` and `sto`\nUse `g!faucet [CURRENCY]`")
+      message.reply("These are the coin you can claim `doge` , `kanda` and `sto`\nUse `f!faucet [CURRENCY]`")
       }
    if(args[0] == "doge"){
   db.add(`doge.${message.author.id}`, reward_doge);
+  db.add(`claims.${message.author.id}` , 1);
 db.set(`timer.${message.author.id}`, Date.now());
      message.reply(`claim ${emoji_doge}${reward_doge} DOGE\n\n[OPENING ADS SPACE HERE]\nContact "GameWatch21#2121" for Renting`);
      }
-    if(args[0] == "sto"){     db.add(`sto.${message.author.id}`, reward_sto); db.set(`timer.${message.author.id}`, Date.now());                       
+if(args[0] == "DOGE"){
+  db.add(`doge.${message.author.id}`, reward_doge);
+  db.add(`claims.${message.author.id}` , 1);
+db.set(`timer.${message.author.id}`, Date.now());
+     message.reply(`claim ${emoji_doge}${reward_doge} DOGE\n\n[OPENING ADS SPACE HERE]\nContact "GameWatch21#2121" for Renting`);
+     }
+    if(args[0] == "sto"){    
+      db.add(`sto.${message.author.id}`, reward_sto);
+      db.add(`claims.${message.author.id}`, 1);
+    db.set(`timer.${message.author.id}`, Date.now());                       
+    message.reply(`claim ${emoji_sto}${reward_sto} STO\n\n[OPENING ADS SPACE]\nContact "GameWatch21#2121" for Renting`);
+      }
+ if(args[0] == "STO"){    
+      db.add(`sto.${message.author.id}`, reward_sto);
+      db.add(`claims.${message.author.id}`, 1);
+    db.set(`timer.${message.author.id}`, Date.now());                       
     message.reply(`claim ${emoji_sto}${reward_sto} STO\n\n[OPENING ADS SPACE]\nContact "GameWatch21#2121" for Renting`);
       }
     if(args[0] == "kanda"){
- db.add(`kanda.${message.author.id}`, reward_kanda); db.set(`timer.${message.author.id}`, Date.now());
+ db.add(`kanda.${message.author.id}`, reward_kanda);
+ db.add(`claims.${message.author.id}`, 1);
+ db.set(`timer.${message.author.id}`, Date.now());
       message.reply(`claim ${emoji_kanda}${reward_kanda} KANDA\n\n[OPENING ADS SPACE]\nContact "GameWatch21#2121" for Renting`);
       }
+ if(args[0] == "KANDA"){
+ db.add(`kanda.${message.author.id}`, reward_kanda);
+ db.add(`claims.${message.author.id}`, 1);
+ db.set(`timer.${message.author.id}`, Date.now());
+      message.reply(`claim ${emoji_kanda}${reward_kanda} KANDA\n\n[OPENING ADS SPACE]\nContact "GameWatch21#2121" for Renting`);
+}
     
     }
   }
