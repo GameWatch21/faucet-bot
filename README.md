@@ -1,2 +1,4 @@
-Tbh i dont care what you want to do with this script
-Fork it if you want, Give a star if you want
+# FAUCET BOT SCRIPT
+This is **NOT** a blockchain Faucet, the withdrawal is processed manually and helped by tip.cc
+
+## Created by GameWatch21
