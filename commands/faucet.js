@@ -20,7 +20,7 @@ module.exports = {
     if (daily !== null && timeout - (Date.now() - daily) > 0) {
       let time = ms(timeout - (Date.now() - daily));
       return message.channel.send(
-        `**You have already claim your reward. Come back in ${time.hours}h ${time.minutes}m ${time.seconds}s**\n\n[OPENING ADS SPACE HERE]\nContact "GameWatch21#2121" for Renting Ads`
+        `**You already claimed your reward. Come back in ${time.hours}h ${time.minutes}m ${time.seconds}s**\n\n[OPENING ADS SPACE HERE]\nContact "GameWatch21#2121" for Renting Ads`
       );
     }
     
@@ -31,37 +31,37 @@ module.exports = {
   db.add(`doge.${message.author.id}`, reward_doge);
   db.add(`claims.${message.author.id}` , 1);
 db.set(`timer.${message.author.id}`, Date.now());
-     message.reply(`claim ${emoji_doge}${reward_doge} DOGE\n\n[OPENING ADS SPACE HERE]\nContact "GameWatch21#2121" for Renting`);
+     message.reply(`earned **${emoji_doge}${reward_doge}** DOGE\n\n[OPENING ADS SPACE HERE]\nContact "GameWatch21#2121" for Renting`);
      }
 if(args[0] == "DOGE"){
   db.add(`doge.${message.author.id}`, reward_doge);
   db.add(`claims.${message.author.id}` , 1);
 db.set(`timer.${message.author.id}`, Date.now());
-     message.reply(`claim ${emoji_doge}${reward_doge} DOGE\n\n[OPENING ADS SPACE HERE]\nContact "GameWatch21#2121" for Renting`);
+     message.reply(`earned **${emoji_doge}${reward_doge}** DOGE\n\n[OPENING ADS SPACE HERE]\nContact "GameWatch21#2121" for Renting`);
      }
     if(args[0] == "sto"){    
       db.add(`sto.${message.author.id}`, reward_sto);
       db.add(`claims.${message.author.id}`, 1);
     db.set(`timer.${message.author.id}`, Date.now());                       
-    message.reply(`claim ${emoji_sto}${reward_sto} STO\n\n[OPENING ADS SPACE]\nContact "GameWatch21#2121" for Renting`);
+    message.reply(`earned **${emoji_sto}${reward_sto}** STO\n\n[OPENING ADS SPACE]\nContact "GameWatch21#2121" for Renting`);
       }
  if(args[0] == "STO"){    
       db.add(`sto.${message.author.id}`, reward_sto);
       db.add(`claims.${message.author.id}`, 1);
     db.set(`timer.${message.author.id}`, Date.now());                       
-    message.reply(`claim ${emoji_sto}${reward_sto} STO\n\n[OPENING ADS SPACE]\nContact "GameWatch21#2121" for Renting`);
+    message.reply(`earned **${emoji_sto}${reward_sto}** STO\n\n[OPENING ADS SPACE]\nContact "GameWatch21#2121" for Renting`);
       }
     if(args[0] == "kanda"){
  db.add(`kanda.${message.author.id}`, reward_kanda);
  db.add(`claims.${message.author.id}`, 1);
  db.set(`timer.${message.author.id}`, Date.now());
-      message.reply(`claim ${emoji_kanda}${reward_kanda} KANDA\n\n[OPENING ADS SPACE]\nContact "GameWatch21#2121" for Renting`);
+      message.reply(`earned **${emoji_kanda}${reward_kanda}** KANDA\n\n[OPENING ADS SPACE]\nContact "GameWatch21#2121" for Renting`);
       }
  if(args[0] == "KANDA"){
  db.add(`kanda.${message.author.id}`, reward_kanda);
  db.add(`claims.${message.author.id}`, 1);
  db.set(`timer.${message.author.id}`, Date.now());
-      message.reply(`claim ${emoji_kanda}${reward_kanda} KANDA\n\n[OPENING ADS SPACE]\nContact "GameWatch21#2121" for Renting`);
+      message.reply(`earned **${emoji_kanda}${reward_kanda}** KANDA\n\n[OPENING ADS SPACE]\nContact "GameWatch21#2121" for Renting`);
 }
     
     }

@@ -18,9 +18,9 @@ message.delete({ timeout: 3000 });
 
     message.channel.bulkDelete(amount, true);
     return message
-      .reply(`Successfully deleted ${amount} messages.`)
+      .reply(`Successfully deleted ${amount} messages.\n\nThis message will be deleted in 3 secs`)
       .then(msg => {
-        message.delete(3000);
+        msg.delete({ timeout: 3000 });
       });
   }
 }

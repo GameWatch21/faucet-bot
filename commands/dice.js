@@ -22,11 +22,15 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
     var wageredD = db.fetch(
     var wageredR = db.fetch( */
     var currency = args[1];
+    const check_currency = db.fetch(`${currency}.${message.author.id}`) || 0;
     var author = db.fetch(`${currency}.${message.author.id}`);
  if(!currency){
    return message.reply("**Choose your currency you want to bet with**")
    }
-   
+   if(check_currency == "0"){
+     message.channel.send("Invalid Currency")
+     
+   }
 /*if(currency == "bitcoin"){
       return message.reply("You mean `btc`? use `g!dice btc [amount]`")
       }
