@@ -4,8 +4,12 @@ const db = require('quick.db');
 module.exports = {
   name: "withdraw",
   description: "Withdraw your doge",
+  guildOnly: true,
   aliases: ["w", "with"],
   execute(message, args){
+  if(message.channel.type == "dm"){
+    message.reply("You cant withdraw currency on DM")
+  }
     const c_doge = db.fetch(`doge.${message.author.id}`) || 0;
     const c_sto = db.fetch(`sto.${message.author.id}`) || 0;
     const c_kanda = db.fetch(`kanda.${message.author.id}`) || 0;
@@ -16,7 +20,7 @@ module.exports = {
    /* if(isNaN(amount)){
       message.reply("Invalid Number");
       } */
-   
+   if(message.channel.type == "text"){
     if(!amount){ 
       message.channel.send("Use `g!withdraw [AMOUNT] [CURRENCY]`\nAvailable Currencies:\n•DOGE\n•STO\n•KANDA"/*"You need to give amount you want to withdraw"*/);
       } 
@@ -101,6 +105,6 @@ db.add(`w_kanda.${message.author.id}`, amount)
     message.reply("You cant withdraw\nTry not to withdraw the exact amount")
     } */
       }
-    
+   }
     }
   }

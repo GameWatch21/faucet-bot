@@ -5,8 +5,12 @@ const ms = require('parse-ms');
 module.exports = {
   name: "faucet",
   description: "Claim Doge every hour",
+  guildOnly: true,
   aliases: ["claim"],
   execute(message, args){
+   if(message.channel.type == "dm"){
+      message.reply("You cant claim Faucet on DM")
+    }
     const reward_doge = 0.1
     const reward_kanda = 5
     const reward_sto = 5
@@ -16,7 +20,7 @@ module.exports = {
     
     let timeout = 3500000;
     let daily =  db.get(`timer.${message.author.id}`);
-
+    if(message.channel.type == "text"){
     if (daily !== null && timeout - (Date.now() - daily) > 0) {
       let time = ms(timeout - (Date.now() - daily));
       return message.channel.send(
@@ -63,6 +67,6 @@ db.set(`timer.${message.author.id}`, Date.now());
  db.set(`timer.${message.author.id}`, Date.now());
       message.reply(`earned **${emoji_kanda}${reward_kanda}** KANDA\n\n[OPENING ADS SPACE]\nContact "GameWatch21#2121" for Renting`);
 }
-    
+    }
     }
   }
