@@ -8,6 +8,7 @@ module.exports = {
   execute(message, args){
     const currency = args[0];
     const c_doge = db.fetch(`doge.${message.author.id}`) || 0;
+    const c_bynd = db.fetch(`bynd.${message.author.id}`) || 0;
     const c_kanda = db.fetch(`kanda.${message.author.id}`) || 0;
     const c_sto = db.fetch(`sto.${message.author.id}`) || 0;
     
@@ -20,6 +21,9 @@ module.exports = {
       {name: "Stoink:", value: `<a:sto:786546176966918144> ${c_sto}`
       },
       {name: "Telokanda:", value: `<a:kanda:786546116317282355> ${c_kanda}`
+      },
+      {name: "Beyondcoin", value: `${process.env.bynd}${c_bynd}`
+        
       }
       )
     .setTimestamp()

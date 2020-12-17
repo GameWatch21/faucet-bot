@@ -13,6 +13,7 @@ const http = require("http");
 const url = require('url');
 /* const fetch = require('node-fetch'); */
 const fs = require("fs");
+const Sequelize = require('sequelize');
 const Discord = require("discord.js");
 const { prefix , token } = require("./config.json");
 const client = new Discord.Client();
@@ -76,6 +77,36 @@ for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
 }
+/*
+const sequelize = new Sequelize('database', 'user', 'password', {
+	host: 'localhost',
+	dialect: 'sqlite',
+	logging: false,
+	// SQLite only
+	storage: 'database.sqlite',
+});
+*/
+/*const sequelize = new Sequelize('database', 'user', 'password', {
+	host: 'localhost',
+	dialect: 'sqlite',
+	logging: false,
+	// SQLite only
+	storage: 'database.sqlite',
+});
+
+const Tags = sequelize.define('tags', {
+	name: {
+		type: Sequelize.STRING,
+		unique: true,
+	},
+	description: Sequelize.TEXT,
+	username: Sequelize.STRING,
+	usage_count: {
+		type: Sequelize.INTEGER,
+		defaultValue: 0,
+		allowNull: false,
+	},
+}); */
 
 client.once("ready", () => {
   console.log(
@@ -84,6 +115,7 @@ client.once("ready", () => {
   client.user.setActivity(`f!help | Claim your faucet with f!faucet`), {
     type: "playing"
     };
+   /*Tags.sync(); */
   }); 
 
 client.on("message", message => {

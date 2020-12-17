@@ -6,6 +6,7 @@ module.exports = {
   description: "Play lotter, like a gamble game :lolhd:",
   aliases: ["lotto" , "raffle"],
   execute(message, args){
+    
     const joinedPlayer = [];
     const option = args[0];
     const amount = args[1];
@@ -14,7 +15,21 @@ module.exports = {
     const prize = db.fetch(`prize`) || 0;  
     const lottoEvent = db.fetch('lotto') || "false";
     const userEvent = db.fetch(`status.${message.author.id}`) || "false";
-    
+    var user = db.fetch(`user.list`);
+function random_winner(win)
+{
+  
+return win[Math.floor(Math.random()*win.length)];
+     
+}
+ if(option == "test"){
+  db.set('user', {list: []})
+ }
+var win = [user];
+   
+   if(!args.length){
+     message.channel.send('Welcome to our Lotto, we have different lotto with other bot, here are the list of the commands:\n```\nf!lotto enter | To enter the game\nf!lotto logout | To logout the previous lotto\n```\n\nLast but not least, Good luck!')
+   }
     if(option == "start"){
 if (!message.member.hasPermission("ADMINISTRATOR")) {
       return message.reply(
@@ -38,7 +53,7 @@ const prizePool = db.fetch(`prize`);
       db.set(`amount` , amount)
       db.set(`currency` , currency);     
       db.set('lotto' , "true");
-      message.channel.send(`<@${message.author.id}> started an Lotto\nPrize: ${prizePool}\nEnter Fee: ${entryFee} ${currencies}\nTime Left: COMING SOON\n\nTo join the lotto, use "f!lotto enter"`);
+      message.channel.send(`Hello <@&789022011225407538> , <@${message.author.id}> started an Lotto\nPrize: ${prizePool} ${currency}\nEnter Fee: ${amount} ${currency}\nTime Left: COMING SOON\n\nTo join the lotto, use "f!lotto enter"`);
       }
     }
     if(option == "check"){
@@ -95,18 +110,26 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
     }
     if(lottoEvent == "true"){
     const user = db.fetch(`user.list`)
-    const win = Math.floor(user.length * Math.random());   const currencies = db.fetch('currency');
+    /*const win = Math.floor(user.length * Math.random());   */const currencies = db.fetch('currency');
     const prize = db.fetch('prize');
-      db.add(`${currencies}.${win}` , prize);
+      db.add(`${currencies}.${random_winner(win)}` , prize);
       db.set(`prize` , 0);
       db.set("lotto" , "false")
-      message.channel.send(`Congrats, <@${win}> have won ${prize} ${currencies} from the Prize pool`);
+      db.delete('user.list')
+      message.channel.send(`Congrats, <@${random_winner(win)}> have won ${prize} ${currencies} from the Prize pool\n\nMake sure to use "f!lotto logout" to be able to play again`);
     }
     }
     if(option == "logout"){
-     /* if(lottoEvent == "false"){
-     */ db.set(`status.${message.author.id}` , "false");
+      const status = db.fetch(`status.${message.author.id}`);
+      /*if(lottoEvent == "false"){
+     */
+     if(status == "true"){
+     db.set(`status.${message.author.id}` , "false");
       message.reply("Successfuly logout");
+     }
+     if(status == "false"){
+       message.reply("You already logout from the last lotto");
+     }
      /* } */
      /* if(lottoEvent == "true"){
         message.reply("You cant logout when there is a Lotto event ongoing")
