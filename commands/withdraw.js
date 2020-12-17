@@ -54,6 +54,7 @@ module.exports = {
        {name: `Amount:`, value: `${amount}` , inline: true}
        )
        .setTimestamp()
+       .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
        .setColor("RANDOM");
        
 db.subtract(`doge.${message.author.id}`, amount);
@@ -77,6 +78,7 @@ const log = new Discord.MessageEmbed()
        {name: `Amount:`, value: `${amount}` , inline: true}
        )
        .setTimestamp()
+       .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
        .setColor("RANDOM");
 db.subtract(`doge.${message.author.id}`, amount);
 db.add(`w_doge.${message.author.id}`, amount);
@@ -120,6 +122,7 @@ const log = new Discord.MessageEmbed()
        {name: `Amount:`, value: `${amount}` , inline: true}
        )
        .setTimestamp()
+       .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
        .setColor("RANDOM");
 db.subtract(`sto.${message.author.id}`, amount);
 db.add(`w_sto.${message.author.id}`, amount);
@@ -142,6 +145,7 @@ const log = new Discord.MessageEmbed()
        {name: `Amount:`, value: `${amount}` , inline: true}
        )
        .setTimestamp()
+       .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
        .setColor("RANDOM");
        
        db.subtract(`kanda.${message.author.id}`, amount);
@@ -163,6 +167,7 @@ const log = new Discord.MessageEmbed()
        {name: `Amount:`, value: `${amount}` , inline: true}
        )
        .setTimestamp()
+       .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
        .setColor("RANDOM");
 db.subtract(`kanda.${message.author.id}`, amount);
 db.add(`w_kanda.${message.author.id}`, amount)

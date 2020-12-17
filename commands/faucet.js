@@ -32,40 +32,82 @@ module.exports = {
       message.reply("These are the coin you can claim `doge` , `kanda` and `sto`\nUse `f!faucet [CURRENCY]`")
       }
    if(args[0] == "doge"){
+     const claims = db.fetch(`claims.${message.author.id}`);
+     const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag} claiming DOGE`)
+     .setDescription(`This user already claim ${claims} times`)
+     .setTimestamp()
+     .setColor("GREEN");
   db.add(`doge.${message.author.id}`, reward_doge);
   db.add(`claims.${message.author.id}` , 1);
 db.set(`timer.${message.author.id}`, Date.now());
      message.reply(`earned **${emoji_doge}${reward_doge}** DOGE\n\n[OPENING ADS SPACE HERE]\nContact "GameWatch21#2121" for Renting`);
-     }
+       message.guild.channels.cache.get('789085255378272266').send(log);
+       }
 if(args[0] == "DOGE"){
+const claims = db.fetch(`claims.${message.author.id}`);
+     const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag} claiming DOGE`)
+     .setDescription(`This user already claim ${claims} times`)
+     .setTimestamp()
+     .setColor("GREEN");
   db.add(`doge.${message.author.id}`, reward_doge);
   db.add(`claims.${message.author.id}` , 1);
 db.set(`timer.${message.author.id}`, Date.now());
      message.reply(`earned **${emoji_doge}${reward_doge}** DOGE\n\n[OPENING ADS SPACE HERE]\nContact "GameWatch21#2121" for Renting`);
+      message.guild.channels.cache.get('789085255378272266').send(log);
      }
-    if(args[0] == "sto"){    
+    if(args[0] == "sto"){
+const claims = db.fetch(`claims.${message.author.id}`);
+     const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag} claiming STO`)
+     .setDescription(`This user already claim ${claims} times`)
+     .setTimestamp()
+     .setColor("GREEN");
       db.add(`sto.${message.author.id}`, reward_sto);
       db.add(`claims.${message.author.id}`, 1);
     db.set(`timer.${message.author.id}`, Date.now());                       
     message.reply(`earned **${emoji_sto}${reward_sto}** STO\n\n[OPENING ADS SPACE]\nContact "GameWatch21#2121" for Renting`);
+ message.guild.channels.cache.get('789085255378272266').send(log);
       }
- if(args[0] == "STO"){    
+ if(args[0] == "STO"){
+const claims = db.fetch(`claims.${message.author.id}`);
+     const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag} claiming STO`)
+     .setDescription(`This user already claim ${claims} times`)
+     .setTimestamp()
+     .setColor("GREEN");
       db.add(`sto.${message.author.id}`, reward_sto);
       db.add(`claims.${message.author.id}`, 1);
     db.set(`timer.${message.author.id}`, Date.now());                       
     message.reply(`earned **${emoji_sto}${reward_sto}** STO\n\n[OPENING ADS SPACE]\nContact "GameWatch21#2121" for Renting`);
+     message.guild.channels.cache.get('789085255378272266').send(log);
       }
     if(args[0] == "kanda"){
+const claims = db.fetch(`claims.${message.author.id}`);
+     const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag} claiming KANDA`)
+     .setDescription(`This user already claim ${claims} times`)
+     .setTimestamp()
+     .setColor("GREEN");
  db.add(`kanda.${message.author.id}`, reward_kanda);
  db.add(`claims.${message.author.id}`, 1);
  db.set(`timer.${message.author.id}`, Date.now());
       message.reply(`earned **${emoji_kanda}${reward_kanda}** KANDA\n\n[OPENING ADS SPACE]\nContact "GameWatch21#2121" for Renting`);
+       message.guild.channels.cache.get('789085255378272266').send(log);
       }
  if(args[0] == "KANDA"){
+const claims = db.fetch(`claims.${message.author.id}`);
+     const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag} claiming KANDA`)
+     .setDescription(`This user already claim ${claims} times`)
+     .setTimestamp()
+     .setColor("GREEN");
  db.add(`kanda.${message.author.id}`, reward_kanda);
  db.add(`claims.${message.author.id}`, 1);
  db.set(`timer.${message.author.id}`, Date.now());
       message.reply(`earned **${emoji_kanda}${reward_kanda}** KANDA\n\n[OPENING ADS SPACE]\nContact "GameWatch21#2121" for Renting`);
+       message.guild.channels.cache.get('789085255378272266').send(log);
 }
     }
     }
