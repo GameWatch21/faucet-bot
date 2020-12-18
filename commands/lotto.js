@@ -130,14 +130,8 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
      if(status == "false"){
        message.reply("You already logout from the last lotto");
      }
-     /* } */
-     /* if(lottoEvent == "true"){
-        message.reply("You cant logout when there is a Lotto event ongoing")
-      } */
+     
     }
-   /* if(option == "blabla"){
-      const userID = db.fetch('user.list');
-      message.reply(userID)
-    } */
+   
   }
 }
