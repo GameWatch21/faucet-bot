@@ -11,13 +11,15 @@ module.exports = {
    if(message.channel.type == "dm"){
       message.reply("You cant claim Faucet on DM")
     }
-    const reward_doge = 0.1
-    const reward_kanda = 5
-    const reward_sto = 5
-    const emoji_doge = process.env.doge
-    const emoji_kanda = process.env.kanda
-    const emoji_sto = process.env.sto
-    
+    const reward_doge = 0.1;
+    const reward_kanda = 5;
+    const reward_sto = 5;
+    const reward_bynd = 0.2;
+    const emoji_doge = process.env.doge;
+    const emoji_kanda = process.env.kanda;
+    const emoji_sto = process.env.sto;
+    const emoji_bynd = process.env.bynd;
+
     let timeout = 3500000;
     let daily =  db.get(`timer.${message.author.id}`);
     if(message.channel.type == "text"){
@@ -29,8 +31,36 @@ module.exports = {
     }
     
     if(!args[0]){
-      message.reply("These are the coin you can claim `doge` , `kanda` and `sto`\nUse `f!faucet [CURRENCY]`")
+      message.reply("These are the coin you can claim `doge` , `kanda`, `sto` and `bynd`\nUse `f!faucet [CURRENCY]`")
       }
+      if(args[0] == "bynd"){
+     const claims = db.fetch(`claims.${message.author.id}`);
+     const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag} claiming BYND`)
+     .setDescription(`This user already claim ${claims} times`)
+     .setTimestamp()
+     .setColor("GREEN");
+  db.add(`bynd.${message.author.id}`, reward_doge);
+  db.add(`claims.${message.author.id}` , 1);
+  db.add(`claims.global` , 1);
+db.set(`timer.${message.author.id}`, Date.now());
+     message.reply(`earned **${emoji_bynd}${reward_bynd}** BYND\n\n[OPENING ADS SPACE HERE]\nContact "GameWatch21#2121" for Renting`);
+       message.guild.channels.cache.get('789085255378272266').send(log);
+       }
+       if(args[0] == "BYND"){
+     const claims = db.fetch(`claims.${message.author.id}`);
+     const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag} claiming BYND`)
+     .setDescription(`This user already claim ${claims} times`)
+     .setTimestamp()
+     .setColor("GREEN");
+  db.add(`bynd.${message.author.id}`, reward_doge);
+  db.add(`claims.${message.author.id}` , 1);
+  db.add(`claims.global` , 1);
+db.set(`timer.${message.author.id}`, Date.now());
+     message.reply(`earned **${emoji_bynd}${reward_bynd}** BYND\n\n[OPENING ADS SPACE HERE]\nContact "GameWatch21#2121" for Renting`);
+       message.guild.channels.cache.get('789085255378272266').send(log);
+       }
    if(args[0] == "doge"){
      const claims = db.fetch(`claims.${message.author.id}`);
      const log = new Discord.MessageEmbed()

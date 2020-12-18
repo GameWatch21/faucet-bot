@@ -48,9 +48,9 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
     if (!amount) {
       return message.reply("**You must type in a number!**");
     }
-   if(isNan(amount)){
-     message.reply("**It's an Invalid number**")
-   }
+  /* if(isNan(amount)) return
+     message.reply("**It's an Invalid number**");
+   */
     if (author >= amount){
     if (random < 3) {
      db.add(`${currency}.${message.author.id}`, amount);

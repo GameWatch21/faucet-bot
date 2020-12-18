@@ -22,15 +22,13 @@ function random_winner(win)
 return win[Math.floor(Math.random()*win.length)];
      
 }
- if(option == "test"){
-  db.set('user', {list: []})
- }
-var win = [user];
+var win = [];
    
    if(!args.length){
      message.channel.send('Welcome to our Lotto, we have different lotto with other bot, here are the list of the commands:\n```\nf!lotto enter | To enter the game\nf!lotto logout | To logout the previous lotto\n```\n\nLast but not least, Good luck!')
    }
     if(option == "start"){
+      db.set('user', {list: []})
 if (!message.member.hasPermission("ADMINISTRATOR")) {
       return message.reply(
         "**You cant start a lotto**"
@@ -85,13 +83,14 @@ const prizePool = db.fetch(`prize`);
           db.set(`status.${message.author.id}` , "true");
          db.subtract(`${currencies}.${message.author.id}` , entryFee);
          db.add(`prize` , entryFee);
-         db.push(`user.list` , `${message.author.id}`);
+         /*db.push(`user.list` , `${message.author.id}`);*/
+         win.push(`${message.author.id}`);
            message.reply("You successfuly enter the Lotto, Good luck!\n\nCheck the current lotto using `f!lotto check`");
           }
         }
         }
         if(userEvent == "true"){
-          message.reply("Hey, you already join the lotto, check the status with `f!lotto check`");
+          message.reply("Hey, you already join the lotto, check the status with `f!lotto check`\n\nOr probably you forgot to do `f!lotto logout`");
         }
       
       
@@ -109,7 +108,7 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
       message.reply("Hey, there is no Lotto to be ended")
     }
     if(lottoEvent == "true"){
-    const user = db.fetch(`user.list`)
+    const user = db.get(`user.list`)
     /*const win = Math.floor(user.length * Math.random());   */const currencies = db.fetch('currency');
     const prize = db.fetch('prize');
       db.add(`${currencies}.${random_winner(win)}` , prize);

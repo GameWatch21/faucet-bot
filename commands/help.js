@@ -30,7 +30,9 @@ module.exports = {
 				 {name: 'f!statistic' , value: 'See your faucet statistic' , inline: true},
       {name: 'f!donate' , value: 'Have some spare of currency to donate?' , inline: true},
       {name: 'f!warn' , value: 'Warn someone that broke the rule' , inline: true}, 
-			{name: "f!prune" , value: "Prune messages", inline: true}
+			{name: "f!prune" , value: "Prune messages", inline: true},
+      {name: `f!tip`, value: `Tip other user crypto`, inline: true},
+      {name: `f!report`, value: `Report if there is a bug or glitch`, inline: true}
 			)
 			.setTimestamp()
 			.setFooter(process.env.F_CREDIT);

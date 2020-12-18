@@ -39,7 +39,10 @@ module.exports = {
  else if(!currency){
       message.reply("Give what currency you want to withdraw");
      }
-     if(currency == "bynd"){
+     if(currency == "BYND"){
+       if(amount < 1){
+         message.reply('The minimum withdraw for BYND is 1 BYND');
+       }
        if(c_bynd >= amount){
 const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag}'s Payment Request`)
@@ -59,6 +62,36 @@ message.guild.channels.cache.get("789311073878278155").send(log);
      
          
        }
+       else if(c_bynd < amount){
+      message.reply(process.env.ERROR);
+      }
+     }
+     if(currency == "bynd"){
+       if(amount < 1){
+         message.reply('The minimum withdraw for BYND is 1 BYND');
+       }
+       if(c_bynd >= amount){
+const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag}'s Payment Request`)
+     .addFields(
+       {name: `Currency:` , value: `BYND` },
+       {name: `Amount:`, value: `${process.env.bynd} ${amount}` , inline: true}
+       )
+       .setTimestamp()
+       .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
+       .setColor("RANDOM");
+         db.subtract(`bynd.${message.author.id}`, amount);
+         db.add(`w_bynd.${message.author.id}` , amount)
+message.channel.send("Your Withdrawal Request has been sent, please wait for 24h till your BYND at your wallet\n\nCheck <#789311073878278155> if your Request is deleted that's mean your BYND is already on your account")
+
+message.guild.channels.cache.get("789311073878278155").send(log);
+     
+     
+         
+       }
+       else if(c_bynd < amount){
+      message.reply(process.env.ERROR);
+      }
      }
     
  if(currency == "doge"){
@@ -67,7 +100,8 @@ message.guild.channels.cache.get("789311073878278155").send(log);
      .setTitle(`${message.author.tag}'s withdrawal`)
      .addFields(
        {name: `Currency:` , value: `DOGE` },
-       {name: `Amount:`, value: `${process.env.doge} ${amount}` , inline: true}
+       {name: `Amount:`, value: `${process.env.doge} ${amount}` , inline: true},
+       {name: `Message Link` , value: `[Hover Link](${message.url})`, inline: true}
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
@@ -91,7 +125,8 @@ const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag}'s withdrawal`)
      .addFields(
        {name: `Currency:` , value: `DOGE` },
-       {name: `Amount:`, value: `${process.env.doge} ${amount}` , inline: true}
+       {name: `Amount:`, value: `${process.env.doge} ${amount}` , inline: true},
+       {name: `Message Link` , value: `[Hover Link](${message.url})`, inline: true}
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
@@ -116,7 +151,8 @@ const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag}'s withdrawal`)
      .addFields(
        {name: `Currency:` , value: `STO` },
-       {name: `Amount:`, value: `${process.env.sto} ${amount}` , inline: true}
+       {name: `Amount:`, value: `${process.env.sto} ${amount}` , inline: true},
+       {name: `Message Link` , value: `[Hover Link](${message.url})`, inline: true}
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
@@ -137,7 +173,8 @@ const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag}'s withdrawal`)
      .addFields(
        {name: `Currency:` , value: `STO` },
-       {name: `Amount:`, value: `${process.env.sto} ${amount}` , inline: true}
+       {name: `Amount:`, value: `${process.env.sto} ${amount}` , inline: true},
+       {name: `Message Link` , value: `[Hover Link](${message.url})`, inline: true}
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
@@ -161,7 +198,8 @@ const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag}'s withdrawal`)
      .addFields(
        {name: `Currency:` , value: `KANDA` },
-       {name: `Amount:`, value: `${process.env.kanda} ${amount}` , inline: true}
+       {name: `Amount:`, value: `${process.env.kanda} ${amount}` , inline: true},
+       {name: `Message Link` , value: `[Hover Link](${message.url})`, inline: true}
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
@@ -183,7 +221,8 @@ const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag}'s withdrawal`)
      .addFields(
        {name: `Currency:` , value: `KANDA` },
-       {name: `Amount:`, value: `${process.env.kanda} ${amount}` , inline: true}
+       {name: `Amount:`, value: `${process.env.kanda} ${amount}` , inline: true},
+       {name: `Message Link` , value: `[Hover Link](${message.url})`, inline: true}
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
