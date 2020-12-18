@@ -35,6 +35,18 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
       return message.reply(
         "**You need to specify a number for this command!**"
       ); */
+    if(currency == "bynd"){
+message.channel.send(
+      `Added ${process.env.bynd}${amount} BYND to ${taggedUser.username}'s account.`
+    );
+        db.add(`bynd.${taggedUser.id}`, amount);
+      }
+      if(currency == "BYND"){
+message.channel.send(
+      `Added ${process.env.bynd}${amount} BYND to ${taggedUser.username}'s account.`
+    );
+        db.add(`bynd.${taggedUser.id}`, amount);
+      }
       if(currency == "doge"){
 message.channel.send(
       `Added ${process.env.doge}${amount} DOGE to ${taggedUser.username}'s account.`

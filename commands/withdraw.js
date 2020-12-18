@@ -24,6 +24,8 @@ module.exports = {
    /* if(isNaN(amount)){
       message.reply("Invalid Number");
       } */
+      
+      
    if(message.channel.type == "text"){
     if(!amount){ 
       message.channel.send("Use `g!withdraw [AMOUNT] [CURRENCY]`\nAvailable Currencies:\n•DOGE\n•STO\n•KANDA"/*"You need to give amount you want to withdraw"*/);
@@ -31,16 +33,30 @@ module.exports = {
   /* if(isNaN(amount)){
         message.reply("Invalid Number");
         } */
-      
+      else if(isNaN(amount)) {
+        message.reply("**Invalid Number**");
+      }
  else if(!currency){
       message.reply("Give what currency you want to withdraw");
      }
      if(currency == "bynd"){
        if(c_bynd >= amount){
+const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag}'s Payment Request`)
+     .addFields(
+       {name: `Currency:` , value: `BYND` },
+       {name: `Amount:`, value: `${process.env.bynd} ${amount}` , inline: true}
+       )
+       .setTimestamp()
+       .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
+       .setColor("RANDOM");
          db.subtract(`bynd.${message.author.id}`, amount);
          db.add(`w_bynd.${message.author.id}` , amount)
-   client.channels.cache.fetch('788612288293634069').then(msg => {msg.send(`${message.author.id} request to withdraw ${amount} BYND`)
-   });
+message.channel.send("Your Withdrawal Request has been sent, please wait for 24h till your BYND at your wallet\n\nCheck <#789311073878278155> if your Request is deleted that's mean your BYND is already on your account")
+
+message.guild.channels.cache.get("789311073878278155").send(log);
+     
+     
          
        }
      }
@@ -51,12 +67,12 @@ module.exports = {
      .setTitle(`${message.author.tag}'s withdrawal`)
      .addFields(
        {name: `Currency:` , value: `DOGE` },
-       {name: `Amount:`, value: `${amount}` , inline: true}
+       {name: `Amount:`, value: `${process.env.doge} ${amount}` , inline: true}
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
        .setColor("RANDOM");
-       
+db.add(`w_doge.stats` , amount);
 db.subtract(`doge.${message.author.id}`, amount);
 db.add(`w_doge.${message.author.id}`, amount);
       message.channel.send(`$tip <@${message.author.id}> ${amount} doge`);
@@ -75,11 +91,12 @@ const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag}'s withdrawal`)
      .addFields(
        {name: `Currency:` , value: `DOGE` },
-       {name: `Amount:`, value: `${amount}` , inline: true}
+       {name: `Amount:`, value: `${process.env.doge} ${amount}` , inline: true}
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
        .setColor("RANDOM");
+       db.add(`w_doge.stats` , amount);
 db.subtract(`doge.${message.author.id}`, amount);
 db.add(`w_doge.${message.author.id}`, amount);
       message.channel.send(`$tip <@${message.author.id}> ${amount} doge`);
@@ -99,11 +116,12 @@ const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag}'s withdrawal`)
      .addFields(
        {name: `Currency:` , value: `STO` },
-       {name: `Amount:`, value: `${amount}` , inline: true}
+       {name: `Amount:`, value: `${process.env.sto} ${amount}` , inline: true}
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
        .setColor("RANDOM");
+       db.add(`w_sto.stats` , amount);
 db.subtract(`sto.${message.author.id}`, amount);
 db.add(`w_sto.${message.author.id}`, amount);
       message.channel.send(`$tip <@${message.author.id}> ${amount} sto`);
@@ -119,11 +137,12 @@ const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag}'s withdrawal`)
      .addFields(
        {name: `Currency:` , value: `STO` },
-       {name: `Amount:`, value: `${amount}` , inline: true}
+       {name: `Amount:`, value: `${process.env.sto} ${amount}` , inline: true}
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
        .setColor("RANDOM");
+       db.add(`w_sto.stats` , amount);
 db.subtract(`sto.${message.author.id}`, amount);
 db.add(`w_sto.${message.author.id}`, amount);
       message.channel.send(`$tip <@${message.author.id}> ${amount} sto`)
@@ -142,12 +161,12 @@ const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag}'s withdrawal`)
      .addFields(
        {name: `Currency:` , value: `KANDA` },
-       {name: `Amount:`, value: `${amount}` , inline: true}
+       {name: `Amount:`, value: `${process.env.kanda} ${amount}` , inline: true}
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
        .setColor("RANDOM");
-       
+       db.add(`w_kanda.stats` , amount);
        db.subtract(`kanda.${message.author.id}`, amount);
      db.add(`w_kanda.${message.author.id}`, amount)
       message.channel.send(`$tip <@${message.author.id}> ${amount} kanda`)
@@ -164,11 +183,12 @@ const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag}'s withdrawal`)
      .addFields(
        {name: `Currency:` , value: `KANDA` },
-       {name: `Amount:`, value: `${amount}` , inline: true}
+       {name: `Amount:`, value: `${process.env.kanda} ${amount}` , inline: true}
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
        .setColor("RANDOM");
+       db.add(`w_kanda.stats` , amount);
 db.subtract(`kanda.${message.author.id}`, amount);
 db.add(`w_kanda.${message.author.id}`, amount)
       message.channel.send(`$tip <@${message.author.id}> ${amount} kanda`)

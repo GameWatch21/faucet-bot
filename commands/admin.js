@@ -16,6 +16,10 @@ module.exports = {
       const option2 = args[1];
       const currency = args[2];
       const input = args[3];
+      const stats_doge = db.fetch(`w_doge.stats`) || 0;
+      const stats_sto = db.fetch(`w_sto.stats`) || 0;
+      const stats_kanda = db.fetch(`w_kanda.stats`) || 0;
+      const claim_stats = db.fetch(`claims.global`) || 0;
     if(option == "balance"){
     message.channel.send("$bals");
     }
@@ -34,6 +38,15 @@ if(option == "balances"){
 if(option == "with"){
     message.channel.send(`$tip <@${message.author.id}> ${option2} ${currency}`)
 }
+  if(option == "status"){
+    message.channel.send(`Global Statistic from Faucet\nWithdrawed Currency:\nDOGE: ${stats_doge}\nSTO: ${stats_sto}\nKANDA: ${stats_kanda}\n\nThe faucet has been used for ${claim_stats} times`)
+  }
+  if(option == "stats"){
+    message.channel.send(`Global Statistic from Faucet\nWithdrawed Currency:\nDOGE: ${stats_doge}\nSTO: ${stats_sto}\nKANDA: ${stats_kanda}\n\nThe faucet has been used for ${claim_stats} times`)
+  }
+  if(option == "statistic"){
+    message.channel.send(`Global Statistic from Faucet\nWithdrawed Currency:\nDOGE: ${stats_doge}\nSTO: ${stats_sto}\nKANDA: ${stats_kanda}\n\nThe faucet has been used for ${claim_stats} times`)
+  }
       }
 } 
   
