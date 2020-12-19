@@ -7,3 +7,6 @@ Published from repl.it, also hosted on repl.it, origin code written at glitch.co
 ## Contributor
 • Beyondtoshi#0001 [Helping me for `Math.floor(amount.length*Math.random())`]
 • To tall for u#9808 [Helping me for `message.guild.channels.cache.get` and `message.url`]
+
+## FORK
+Feel free to fork my project, you can modified all of the code and take my credits :v, but i will appreciate if you give my credits somewhere else
