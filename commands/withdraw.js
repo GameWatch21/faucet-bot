@@ -40,24 +40,23 @@ module.exports = {
       message.reply("Give what currency you want to withdraw");
      }
      if(currency == "BYND"){
-       if(amount < 1){
-         message.reply('The minimum withdraw for BYND is 1 BYND');
-       }
        if(c_bynd >= amount){
 const log = new Discord.MessageEmbed()
-     .setTitle(`${message.author.tag}'s Payment Request`)
+     .setTitle(`${message.author.tag}'s withdrawal`)
      .addFields(
        {name: `Currency:` , value: `BYND` },
-       {name: `Amount:`, value: `${process.env.bynd} ${amount}` , inline: true}
+       {name: `Amount:`, value: `${process.env.bynd} ${amount}` , inline: true},
+       {name: `Message Link` , value: `[Hover Link](${message.url})`}
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
-       .setColor("RANDOM");
+       .setColor("BLUE");
          db.subtract(`bynd.${message.author.id}`, amount);
          db.add(`w_bynd.${message.author.id}` , amount)
-message.channel.send("Your Withdrawal Request has been sent, please wait for 24h till your BYND at your wallet\n\nCheck <#789311073878278155> if your Request is deleted that's mean your BYND is already on your account")
+         db.add(`w_bynd.stats` , amount)
+message.channel.send(`$tip <@${message.author.id}> ${amount} bynd`)
 
-message.guild.channels.cache.get("789311073878278155").send(log);
+message.guild.channels.cache.get("788612288293634069").send(log);
      
      
          
@@ -67,24 +66,23 @@ message.guild.channels.cache.get("789311073878278155").send(log);
       }
      }
      if(currency == "bynd"){
-       if(amount < 1){
-         message.reply('The minimum withdraw for BYND is 1 BYND');
-       }
        if(c_bynd >= amount){
 const log = new Discord.MessageEmbed()
-     .setTitle(`${message.author.tag}'s Payment Request`)
+     .setTitle(`${message.author.tag}'s withdrawal`)
      .addFields(
        {name: `Currency:` , value: `BYND` },
-       {name: `Amount:`, value: `${process.env.bynd} ${amount}` , inline: true}
+       {name: `Amount:`, value: `${process.env.bynd} ${amount}` , inline: true},
+       {name: `Message Link` , value: `[Hover Link](${message.url})` , inline: true}
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
-       .setColor("RANDOM");
+       .setColor("BLUE");
          db.subtract(`bynd.${message.author.id}`, amount);
          db.add(`w_bynd.${message.author.id}` , amount)
-message.channel.send("Your Withdrawal Request has been sent, please wait for 24h till your BYND at your wallet\n\nCheck <#789311073878278155> if your Request is deleted that's mean your BYND is already on your account")
+         db.add(`w_bynd.stats` , amount)
+message.channel.send(`$tip <@${message.author.id}> ${amount} bynd`)
 
-message.guild.channels.cache.get("789311073878278155").send(log);
+message.guild.channels.cache.get("788612288293634069").send(log);
      
      
          
@@ -105,7 +103,7 @@ message.guild.channels.cache.get("789311073878278155").send(log);
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
-       .setColor("RANDOM");
+       .setColor("ORANGE");
 db.add(`w_doge.stats` , amount);
 db.subtract(`doge.${message.author.id}`, amount);
 db.add(`w_doge.${message.author.id}`, amount);
@@ -130,7 +128,7 @@ const log = new Discord.MessageEmbed()
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
-       .setColor("RANDOM");
+       .setColor("ORANGE");
        db.add(`w_doge.stats` , amount);
 db.subtract(`doge.${message.author.id}`, amount);
 db.add(`w_doge.${message.author.id}`, amount);
@@ -156,7 +154,7 @@ const log = new Discord.MessageEmbed()
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
-       .setColor("RANDOM");
+       .setColor("BLACK");
        db.add(`w_sto.stats` , amount);
 db.subtract(`sto.${message.author.id}`, amount);
 db.add(`w_sto.${message.author.id}`, amount);
@@ -178,7 +176,7 @@ const log = new Discord.MessageEmbed()
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
-       .setColor("RANDOM");
+       .setColor("BLACK");
        db.add(`w_sto.stats` , amount);
 db.subtract(`sto.${message.author.id}`, amount);
 db.add(`w_sto.${message.author.id}`, amount);
@@ -203,7 +201,7 @@ const log = new Discord.MessageEmbed()
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
-       .setColor("RANDOM");
+       .setColor("ORANGE");
        db.add(`w_kanda.stats` , amount);
        db.subtract(`kanda.${message.author.id}`, amount);
      db.add(`w_kanda.${message.author.id}`, amount)
@@ -226,7 +224,7 @@ const log = new Discord.MessageEmbed()
        )
        .setTimestamp()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
-       .setColor("RANDOM");
+       .setColor("ORANGE");
        db.add(`w_kanda.stats` , amount);
 db.subtract(`kanda.${message.author.id}`, amount);
 db.add(`w_kanda.${message.author.id}`, amount)
