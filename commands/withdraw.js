@@ -15,8 +15,10 @@ module.exports = {
     const c_sto = db.fetch(`sto.${message.author.id}`) || 0;
     const c_kanda = db.fetch(`kanda.${message.author.id}`) || 0;
     const c_bynd = db.fetch(`bynd.${message.author.id}`) || 0;
+    const c_btc = db.fetch(`btc.${message.author.id}`) || 0;
     const amount = args[0];
     const currency = args[1];
+    var btc = ["btc" , "satoshi"];
     /*const channel = client.channels.cache.find(x => x.id == "788612288293634069")
 */
    /* const response_doge = currency.toLowerCase() == "DOGE";*/
@@ -28,7 +30,7 @@ module.exports = {
       
    if(message.channel.type == "text"){
     if(!amount){ 
-      message.channel.send("Use `g!withdraw [AMOUNT] [CURRENCY]`\nAvailable Currencies:\n•DOGE\n•STO\n•KANDA"/*"You need to give amount you want to withdraw"*/);
+      message.channel.send("Use `g!withdraw [AMOUNT] [CURRENCY]`\nAvailable Currencies:\n•DOGE\n•STO\n•KANDA\n•BYND\n•BTC"/*"You need to give amount you want to withdraw"*/);
       } 
   /* if(isNaN(amount)){
         message.reply("Invalid Number");
@@ -39,6 +41,85 @@ module.exports = {
  else if(!currency){
       message.reply("Give what currency you want to withdraw");
      }
+     if(currency.toLowerCase() == "sats"){
+       if(c_btc >= amount){
+const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag}'s withdrawal`)
+     .addFields(
+       {name: `Currency:` , value: `BTC` },
+       {name: `Amount:`, value: `${process.env.btc} ${amount} satoshi` , inline: true},
+       {name: `Message Link` , value: `[Hover Link](${message.url})` , inline: true}
+       )
+       .setTimestamp()
+       .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
+       .setColor("BLUE");
+         db.subtract(`btc.${message.author.id}`, amount);
+         db.add(`w_btc.${message.author.id}` , amount)
+         db.add(`w_btc.stats` , amount)
+message.channel.send(`$tip <@${message.author.id}> ${amount} satoshi`)
+
+message.guild.channels.cache.get("788612288293634069").send(log);
+     
+     
+         
+       }
+       else if(c_btc < amount){
+      message.reply(process.env.ERROR);
+      }
+     }
+if(currency.toLowerCase() == "satoshi"){
+       if(c_btc >= amount){
+const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag}'s withdrawal`)
+     .addFields(
+       {name: `Currency:` , value: `BTC` },
+       {name: `Amount:`, value: `${process.env.btc} ${amount} satoshi` , inline: true},
+       {name: `Message Link` , value: `[Hover Link](${message.url})` , inline: true}
+       )
+       .setTimestamp()
+       .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
+       .setColor("BLUE");
+         db.subtract(`btc.${message.author.id}`, amount);
+         db.add(`w_btc.${message.author.id}` , amount)
+         db.add(`w_btc.stats` , amount)
+message.channel.send(`$tip <@${message.author.id}> ${amount} satoshi`)
+
+message.guild.channels.cache.get("788612288293634069").send(log);
+     
+     
+         
+       }
+       else if(c_btc < amount){
+      message.reply(process.env.ERROR);
+      }
+     }
+if(currency.toLowerCase() == "btc"){
+       if(c_btc >= amount){
+const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag}'s withdrawal`)
+     .addFields(
+       {name: `Currency:` , value: `BTC` },
+       {name: `Amount:`, value: `${process.env.btc} ${amount} satoshi` , inline: true},
+       {name: `Message Link` , value: `[Hover Link](${message.url})` , inline: true}
+       )
+       .setTimestamp()
+       .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
+       .setColor("BLUE");
+         db.subtract(`btc.${message.author.id}`, amount);
+         db.add(`w_btc.${message.author.id}` , amount)
+         db.add(`w_btc.stats` , amount)
+message.channel.send(`$tip <@${message.author.id}> ${amount} satoshi`)
+
+message.guild.channels.cache.get("788612288293634069").send(log);
+     
+     
+         
+       }
+       else if(c_btc < amount){
+      message.reply(process.env.ERROR);
+      }
+     }
+    /*
      if(currency == "BYND"){
        if(c_bynd >= amount){
 const log = new Discord.MessageEmbed()
@@ -64,8 +145,8 @@ message.guild.channels.cache.get("788612288293634069").send(log);
        else if(c_bynd < amount){
       message.reply(process.env.ERROR);
       }
-     }
-     if(currency == "bynd"){
+     } */
+     if(currency.toLowerCase() == "bynd"){
        if(c_bynd >= amount){
 const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag}'s withdrawal`)
@@ -116,7 +197,7 @@ db.add(`w_doge.${message.author.id}`, amount);
  /* else if(c_doge == amount){
     message.reply("You cant withdraw\nTry not to withdraw the exact amount")
     } */
-      }
+      }/*
 if(currency == "DOGE"){
    if(c_doge >= amount){
 const log = new Discord.MessageEmbed()
@@ -140,10 +221,10 @@ db.add(`w_doge.${message.author.id}`, amount);
       }
  /* else if(c_doge == amount){
     message.reply("You cant withdraw\nTry not to withdraw the exact amount")
-    } */
-      }
+    } 
+      }*/
  
-  if(currency == "sto"){
+  if(currency.toLowerCase() == "sto"){
       if(c_sto >= amount){
 const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag}'s withdrawal`)
@@ -164,7 +245,7 @@ db.add(`w_sto.${message.author.id}`, amount);
       if(c_sto < amount){
         message.reply(process.env.ERROR);
         }
-      }
+      }/*
 if(currency == "STO"){
    if(c_sto >= amount){
 const log = new Discord.MessageEmbed()
@@ -188,9 +269,9 @@ db.add(`w_sto.${message.author.id}`, amount);
       }
  /* else if(c_doge == amount){
     message.reply("You cant withdraw\nTry not to withdraw the exact amount")
-    } */
-      }
-   if(currency == "kanda"){
+    } 
+      }*/
+   if(currency.toLowerCase() == "kanda"){
      if(c_kanda >= amount){ 
 const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag}'s withdrawal`)
@@ -212,7 +293,7 @@ const log = new Discord.MessageEmbed()
        message.reply(process.env.ERROR);
        }
     
-      }
+      }/*
 if(currency == "KANDA"){
    if(c_kanda >= amount){
 const log = new Discord.MessageEmbed()
@@ -236,8 +317,8 @@ db.add(`w_kanda.${message.author.id}`, amount)
       }
  /* else if(c_doge == amount){
     message.reply("You cant withdraw\nTry not to withdraw the exact amount")
-    } */
-      }
+    } 
+      }*/
    }
     }
   }

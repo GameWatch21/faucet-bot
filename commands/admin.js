@@ -20,7 +20,8 @@ module.exports = {
       const stats_sto = db.fetch(`w_sto.stats`) || 0;
       const stats_kanda = db.fetch(`w_kanda.stats`) || 0;
       const claim_stats = db.fetch(`claims.global`) || 0;
-      const stats_bynd = db.fetch(`w_bynd.stats`)
+      const stats_bynd = db.fetch(`w_bynd.stats`) || 0;
+      const stats_btc = db.fetch(`w_btc.stats`) || 0;
     if(option == "balance"){
       if(!option2){
         message.channel.send("$bal");
@@ -28,13 +29,13 @@ module.exports = {
     
   else  message.channel.send(`$bal ${option2}`);
     }
-if(option == "bal"){
+if(option.toLowerCase() == "bal"){
    if(!option2){
      message.channel.send("$bal");
    }
     else message.channel.send(`$bal ${option2}`);
     }
-if(option == "bals"){
+if(option.toLowerCase() == "bals"){
     message.channel.send("$bals");
     }
 if(option == "balances"){
@@ -43,10 +44,10 @@ if(option == "balances"){
     if(option == "withdraw"){
     message.channel.send(`$tip <@${message.author.id}> ${option2} ${currency}`)
 }
-if(option == "with"){
+if(option.toLowerCase() == "with"){
     message.channel.send(`$tip <@${message.author.id}> ${option2} ${currency}`)
 }
-  if(option == "status"){
+  if(option.toLowerCase() == "status"){
     const embed = new Discord.MessageEmbed()
     .setTitle(`Faucet Statistic`)
    .addFields(
@@ -55,6 +56,7 @@ if(option == "with"){
      {name: `Claimed Stoink:` , value: `${process.env.sto}${stats_sto}` , inline: true},
      {name: `Claimed Kanda:` , value: `${process.env.kanda}${stats_kanda}` , inline: true},
       {name: `Claimed BYND:` , value: `${process.env.bynd}${stats_bynd}` , inline: true},
+      {name: `Claimed BTC (satoshi):` , value: `${process.env.btc}${stats_btc}` , inline: true},
   /*  {name: `Faucet Claims`},*/
      {name: `Claims:` , value: `${claim_stats}` , inline: true}
      )
@@ -63,7 +65,7 @@ if(option == "with"){
      
     message.channel.send(embed)
   }
-  if(option == "stats"){
+  if(option.toLowerCase() == "stats"){
         const embed = new Discord.MessageEmbed()
     .setTitle(`Faucet Statistic`)
    .addFields(
@@ -72,6 +74,7 @@ if(option == "with"){
      {name: `Claimed Stoink:` , value: `${process.env.sto}${stats_sto}` , inline: true},
      {name: `Claimed Kanda:` , value: `${process.env.kanda}${stats_kanda}` , inline: true},
      {name: `Claimed BYND:` , value: `${process.env.bynd}${stats_bynd}` , inline: true},
+     {name: `Claimed BTC (satoshi):` , value: `${process.env.btc}${stats_btc}` , inline: true},
   /*  {name: `Faucet Claims`},*/
      {name: `Claims:` , value: `${claim_stats}` , inline: true}
      )
@@ -89,6 +92,7 @@ if(option == "with"){
      {name: `Claimed Stoink:` , value: `${process.env.sto}${stats_sto}` , inline: true},
      {name: `Claimed Kanda:` , value: `${process.env.kanda}${stats_kanda}` , inline: true},
      {name: `Claimed BYND:` , value: `${process.env.bynd}${stats_bynd}` , inline: true},
+     {name: `Claimed BTC (satoshi):` , value: `${process.env.btc}${stats_btc}` , inline: true},
   /*  {name: `Faucet Claims`},*/
      {name: `Claims:` , value: `${claim_stats}` , inline: true}
      )
@@ -126,6 +130,7 @@ if(option == "with"){
     const c_bynd = db.fetch(`bynd.${user.id}`) || 0;
     const c_kanda = db.fetch(`kanda.${user.id}`) || 0;
     const c_sto = db.fetch(`sto.${user.id}`) || 0;
+    const c_btc = db.fetch(`btc.${user.id}`) || 0;
     const embed_Bal = new Discord.MessageEmbed()
     .setTitle(`${user.tag}'s Balance`)
     .addFields(
@@ -135,9 +140,8 @@ if(option == "with"){
       },
       {name: "Telokanda:", value: `<a:kanda:786546116317282355> ${c_kanda}`
       },
-      {name: "Beyondcoin", value: `${process.env.bynd}${c_bynd}`
-        
-      }
+      {name: "Beyondcoin", value: `${process.env.bynd}${c_bynd}`},
+      {name: "Bitcoin" , value: `${process.env.btc}${c_btc} satoshi`}
       )
     .setTimestamp()
     .setColor('BLUE');
@@ -148,19 +152,30 @@ if(!user){
     
   }
   if(option == "set"){
+    const total = db.fetch(`faucet_${option2}`);
+    const currencies = args[1].toLowerCase();
+    const amount = args[2];
     if(!option2){
       message.reply("Please provide what currency you want to set")
     }
      if(!currency){
       message.reply("Please provide the number to set the faucet reward")
     }
-   else db.set(`faucet_${option2}` , `${currency}`);
-    message.reply(`${option2} Currency reward has been set to ${currency}`);
+   else db.set(`faucet_${currencies}` , `${amount}`);
+   if(total == "undefined"){
+     message.reply("Is not a valid currency");
+   }
+   else message.reply(`${option2} Currency reward has been set to ${currency}`);
   }
   if(option == "ads"){
     const arg = args.slice(1).join(" ");
     db.set(`ads_text` , `${arg}`);
     message.reply(`Advertisement Text has been set to: ${arg}`)
+  }
+  if(option == "timer"){
+    const user = message.mentions.users.first();
+    db.delete(`timer.${user.id}`);
+    message.reply(`${user.tag} timer has been reseted`)
   }
       }
 } 

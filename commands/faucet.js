@@ -15,6 +15,7 @@ module.exports = {
     const reward_kanda = db.fetch(`faucet_kanda`) || 2;
     const reward_sto = db.fetch(`faucet_sto`) || 5
     const reward_bynd = db.fetch(`faucet_bynd`) || 0.2;
+    const reward_btc = db.fetch(`faucet_btc`) || 0;
     const ads_space = db.fetch(`ads_text`) || "Open Space";
     const emoji_doge = process.env.doge;
     const emoji_kanda = process.env.kanda;
@@ -32,9 +33,23 @@ module.exports = {
     }
     
     if(!args[0]){
-      message.reply("These are the coin you can claim `doge` , `kanda`, `sto` and `bynd`\nUse `f!faucet [CURRENCY]`")
+      message.reply("These are the coin you can claim\n```\n•DOGE\n•Kanda\n•STO\n•BYND\n•BTC\n```\n\nUse `f!faucet [CURRENCY]`")
       }
-      if(args[0] == "bynd"){
+   if(args[0].toLowerCase() == "btc"){
+     const claims = db.fetch(`claims.${message.author.id}`);
+     const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag} claiming satoshi`)
+     .setDescription(`This user already claim ${claims} times`)
+     .setTimestamp()
+     .setColor("GREEN");
+  db.add(`btc.${message.author.id}`, reward_btc);
+  db.add(`claims.${message.author.id}` , 1);
+  db.add(`claims.global` , 1);
+db.set(`timer.${message.author.id}`, Date.now());
+     message.reply(`earned **${process.env.btc}${reward_btc}** satoshi\n\n[ADVERTISEMENT SPACE]\n${ads_space}\nContact "GameWatch21#2121" for Renting`);
+       message.guild.channels.cache.get('789085255378272266').send(log);
+       } 
+      if(args[0].toLowerCase() == "bynd"){
      const claims = db.fetch(`claims.${message.author.id}`);
      const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag} claiming BYND`)
@@ -47,7 +62,7 @@ module.exports = {
 db.set(`timer.${message.author.id}`, Date.now());
      message.reply(`earned **${emoji_bynd}${reward_bynd}** BYND\n\n[ADVERTISEMENT SPACE]\n${ads_space}\nContact "GameWatch21#2121" for Renting`);
        message.guild.channels.cache.get('789085255378272266').send(log);
-       }
+       }/*
        if(args[0] == "BYND"){
      const claims = db.fetch(`claims.${message.author.id}`);
      const log = new Discord.MessageEmbed()
@@ -61,8 +76,8 @@ db.set(`timer.${message.author.id}`, Date.now());
 db.set(`timer.${message.author.id}`, Date.now());
      message.reply(`earned **${emoji_bynd}${reward_bynd}** BYND\n\n[ADVERTISEMENT SPACE]\n${ads_space}\nContact "GameWatch21#2121" for Renting`);
        message.guild.channels.cache.get('789085255378272266').send(log);
-       }
-   if(args[0] == "doge"){
+       }*/
+   if(args[0].toLowerCase() == "doge"){
      const claims = db.fetch(`claims.${message.author.id}`);
      const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag} claiming DOGE`)
@@ -75,8 +90,8 @@ db.set(`timer.${message.author.id}`, Date.now());
 db.set(`timer.${message.author.id}`, Date.now());
      message.reply(`earned **${emoji_doge}${reward_doge}** DOGE\n\n[ADVERTISEMENT SPACE]\n${ads_space}\nContact "GameWatch21#2121" for Renting`);
        message.guild.channels.cache.get('789085255378272266').send(log);
-       }
-if(args[0] == "DOGE"){
+       } /*
+if(args[0].toLowerCase() == "DOGE"){
 const claims = db.fetch(`claims.${message.author.id}`);
      const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag} claiming DOGE`)
@@ -89,8 +104,8 @@ const claims = db.fetch(`claims.${message.author.id}`);
 db.set(`timer.${message.author.id}`, Date.now());
      message.reply(`earned **${emoji_doge}${reward_doge}** DOGE\n\n[ADVERTISEMENT SPACE]\n${ads_space}\nContact "GameWatch21#2121" for Renting`);
       message.guild.channels.cache.get('789085255378272266').send(log);
-     }
-    if(args[0] == "sto"){
+     }*/
+    if(args[0].toLowerCase() == "sto"){
 const claims = db.fetch(`claims.${message.author.id}`);
      const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag} claiming STO`)
@@ -103,7 +118,7 @@ const claims = db.fetch(`claims.${message.author.id}`);
     db.set(`timer.${message.author.id}`, Date.now());                       
     message.reply(`earned **${emoji_sto}${reward_sto}** STO\n\n[ADVERTISEMENT SPACE]\n${ads_space}\nContact "GameWatch21#2121" for Renting`);
  message.guild.channels.cache.get('789085255378272266').send(log);
-      }
+      }/*
  if(args[0] == "STO"){
 const claims = db.fetch(`claims.${message.author.id}`);
      const log = new Discord.MessageEmbed()
@@ -117,8 +132,8 @@ const claims = db.fetch(`claims.${message.author.id}`);
     db.set(`timer.${message.author.id}`, Date.now());                       
     message.reply(`earned **${emoji_sto}${reward_sto}** STO\n\n[ADVERTISEMENT SPACE]\n${ads_space}\nContact "GameWatch21#2121" for Renting`);
      message.guild.channels.cache.get('789085255378272266').send(log);
-      }
-    if(args[0] == "kanda"){
+      }*/
+    if(args[0].toLowerCase() == "kanda"){
 const claims = db.fetch(`claims.${message.author.id}`);
      const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag} claiming KANDA`)
@@ -131,7 +146,7 @@ const claims = db.fetch(`claims.${message.author.id}`);
  db.set(`timer.${message.author.id}`, Date.now());
       message.reply(`earned **${emoji_kanda}${reward_kanda}** KANDA\n\n[ADVERTISEMENT SPACE]\n${ads_space}\nContact "GameWatch21#2121" for Renting`);
        message.guild.channels.cache.get('789085255378272266').send(log);
-      }
+      }/*
  if(args[0] == "KANDA"){
 const claims = db.fetch(`claims.${message.author.id}`);
      const log = new Discord.MessageEmbed()
@@ -145,7 +160,7 @@ const claims = db.fetch(`claims.${message.author.id}`);
  db.set(`timer.${message.author.id}`, Date.now());
       message.reply(`earned **${emoji_kanda}${reward_kanda}** KANDA\n\n[ADVERTISEMENT SPACE]\n${ads_space}\nContact "GameWatch21#2121" for Renting`);
        message.guild.channels.cache.get('789085255378272266').send(log);
-}
+}*/
     }
     }
   };
