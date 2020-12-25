@@ -12,6 +12,8 @@ module.exports = {
     const c_kanda = db.fetch(`kanda.${message.author.id}`) || 0;
     const c_sto = db.fetch(`sto.${message.author.id}`) || 0;
     const c_btc = db.fetch(`btc.${message.author.id}`) || 0;
+    const c_safe = db.fetch(`safe.${message.author.id}`) || 0;
+    const c_goat = db.fetch(`goat.${message.author.id}`) || 0;
     
     if(!currency){
     const embed_Bal = new Discord.MessageEmbed()
@@ -24,7 +26,9 @@ module.exports = {
       {name: "Telokanda:", value: `**<a:kanda:786546116317282355> ${c_kanda}**`
       },
       {name: "Beyondcoin", value: `**${process.env.bynd}${c_bynd}**`},
-      {name: "Bitcoin" , value: `**${process.env.btc}${c_btc} satoshi**`}
+      {name: "Bitcoin" , value: `**${process.env.btc}${c_btc} satoshi**`},
+      {name: "Allsafe" , value: `**${process.env.safe}${c_safe}**`},
+      {name: "Goat" , value: `**${process.env.goat}${c_goat}**`}
       )
     .setTimestamp()
     .setColor('BLUE');

@@ -128,7 +128,7 @@ client.on("message", message => {
     message.channel.send(embed);
   } */
   
-  if (!message.content.startsWith(prefix) || message.author.bot) return;
+  if (!message.content.toLowerCase().startsWith(prefix) || message.author.bot) return;
 
   const args = message.content
     .slice(prefix.length)
@@ -148,7 +148,7 @@ client.on("message", message => {
     command.execute(message, args);
   } catch (error) {
     console.error(error);
-    message.reply("there was an error trying to execute that command!");
+    message.reply("There was an error when using this command, please use `f!report [MESSAGE]` to report this error");
   }
 
   // [BASIC COMMANDS]
