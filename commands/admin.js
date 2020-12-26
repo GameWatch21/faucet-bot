@@ -7,6 +7,9 @@ module.exports = {
   description: "checking the bot balances",
   aliases: ["a" , "ad"],
   execute(message, args){
+    if(message.channel.type == "dm"){
+      message.reply("You cant claim Faucet on DM");
+    }
   if (!message.member.hasPermission("ADMINISTRATOR"))
       return message.reply(
         "**You don't have enough permissions for this command!**"
@@ -22,41 +25,40 @@ module.exports = {
       const claim_stats = db.fetch(`claims.global`) || 0;
       const stats_bynd = db.fetch(`w_bynd.stats`) || 0;
       const stats_btc = db.fetch(`w_btc.stats`) || 0;
-    if(option == "balance"){
+      const stats_goat = db.fetch(`w_goat.stats`) || 0;
+      const stats_eth = db.fetch(`w_eth.stats`) || 0;
+      const stats_safe = db.fetch(`w_safe.stats`) || 0;
+      const stats = ["stats" , "statistic" , "stat" , "statistics"];
+      const ann = ["ann" , "announcement" , "announce" , "announces" , "announcements"];
+      const bal = ["bal" , "balance"];
+      const bals = ["bals" , "balances"];
+      const withdraw = ["with" , "withdraw"];
+    if(bal.includes(option.toLowerCase())){
       if(!option2){
         message.channel.send("$bal");
       }
     
   else  message.channel.send(`$bal ${option2}`);
     }
-if(option.toLowerCase() == "bal"){
-   if(!option2){
-     message.channel.send("$bal");
-   }
-    else message.channel.send(`$bal ${option2}`);
-    }
-if(option.toLowerCase() == "bals"){
+if(bals.includes(option.toLowerCase())){
     message.channel.send("$bals");
     }
-if(option == "balances"){
-    message.channel.send("$bals");
-    }
-    if(option == "withdraw"){
+if(withdraw.includes(option.toLowerCase())){
     message.channel.send(`$tip <@${message.author.id}> ${option2} ${currency}`)
 }
-if(option.toLowerCase() == "with"){
-    message.channel.send(`$tip <@${message.author.id}> ${option2} ${currency}`)
-}
-  if(option.toLowerCase() == "status"){
+  if(stats.includes(option.toLowerCase())){
     const embed = new Discord.MessageEmbed()
     .setTitle(`Faucet Statistic`)
    .addFields(
     /* {name: `Withdrawal`}, */
-     {name: `Claimed Doge:` , value: `${process.env.doge}${stats_doge}` , inline: true},
-     {name: `Claimed Stoink:` , value: `${process.env.sto}${stats_sto}` , inline: true},
-     {name: `Claimed Kanda:` , value: `${process.env.kanda}${stats_kanda}` , inline: true},
-      {name: `Claimed BYND:` , value: `${process.env.bynd}${stats_bynd}` , inline: true},
-      {name: `Claimed BTC (satoshi):` , value: `${process.env.btc}${stats_btc}` , inline: true},
+     {name: `Claimed Doge:` , value: `${process.env.doge}${stats_doge}` , inline: false},
+     {name: `Claimed Stoink:` , value: `${process.env.sto}${stats_sto}` , inline: false},
+     {name: `Claimed Kanda:` , value: `${process.env.kanda}${stats_kanda}` , inline: false},
+      {name: `Claimed BYND:` , value: `${process.env.bynd}${stats_bynd}` , inline: false},
+      {name: `Claimed BTC (satoshi):` , value: `${process.env.btc}${stats_btc}` , inline: false},
+      {name: `Claimed ETH (Gwei):` , value: `${process.env.eth}${stats_eth} gwei`},
+    {name: `Claimed Allsafe:` , value: `${process.env.safe}${stats_safe}`},
+    {name: `Claimed Goat Cash:` , value: `${process.env.goat}${stats_goat}`},
   /*  {name: `Faucet Claims`},*/
      {name: `Claims:` , value: `${claim_stats}` , inline: true}
      )
@@ -65,56 +67,9 @@ if(option.toLowerCase() == "with"){
      
     message.channel.send(embed)
   }
-  if(option.toLowerCase() == "stats"){
-        const embed = new Discord.MessageEmbed()
-    .setTitle(`Faucet Statistic`)
-   .addFields(
-    /* {name: `Withdrawal`}, */
-     {name: `Claimed Doge:` , value: `${process.env.doge}${stats_doge}` , inline: true},
-     {name: `Claimed Stoink:` , value: `${process.env.sto}${stats_sto}` , inline: true},
-     {name: `Claimed Kanda:` , value: `${process.env.kanda}${stats_kanda}` , inline: true},
-     {name: `Claimed BYND:` , value: `${process.env.bynd}${stats_bynd}` , inline: true},
-     {name: `Claimed BTC (satoshi):` , value: `${process.env.btc}${stats_btc}` , inline: true},
-  /*  {name: `Faucet Claims`},*/
-     {name: `Claims:` , value: `${claim_stats}` , inline: true}
-     )
-     .setTimestamp()
-     .setColor("GREEN");
-     
-    message.channel.send(embed)
-  }
-  if(option == "statistic"){
-      const embed = new Discord.MessageEmbed()
-    .setTitle(`Faucet Statistic`)
-   .addFields(
-    /* {name: `Withdrawal`}, */
-     {name: `Claimed Doge:` , value: `${process.env.doge}${stats_doge}` , inline: true},
-     {name: `Claimed Stoink:` , value: `${process.env.sto}${stats_sto}` , inline: true},
-     {name: `Claimed Kanda:` , value: `${process.env.kanda}${stats_kanda}` , inline: true},
-     {name: `Claimed BYND:` , value: `${process.env.bynd}${stats_bynd}` , inline: true},
-     {name: `Claimed BTC (satoshi):` , value: `${process.env.btc}${stats_btc}` , inline: true},
-  /*  {name: `Faucet Claims`},*/
-     {name: `Claims:` , value: `${claim_stats}` , inline: true}
-     )
-     .setTimestamp()
-     .setColor("GREEN");
-     
-    message.channel.send(embed)
-  }
-  if(option == 'ann'){
-    const arg = args.slice(1).join(" ");/*args.slice(0).join(" ");*/
-    /*const channel = message.mention.channels.first().id;
-    const place = */
-    message.guild.channels.cache.get('786285618899451904').send(`${arg}`);
-  }
-  if(option == 'announce'){
-    const arg = args.slice(1).join(" ");/*args.slice(0).join(" ");*/
-    /*const channel = message.mention.channels.first().id;*/
-    message.guild.channels.cache.get('786285618899451904').send(`${arg}`);
-  }
-  if(option == 'announcement'){
-    const arg = args.slice(1).join(" ");/*args.slice(0).join(" ");*/
-    /*const channel = message.mention.channels.first().id;*/
+  
+  if(ann.includes(option.toLowerCase())){
+    const arg = args.slice(1).join(" ");
     message.guild.channels.cache.get('786285618899451904').send(`${arg}`);
   }
   if(option == 'reset'){
@@ -131,6 +86,9 @@ if(option.toLowerCase() == "with"){
     const c_kanda = db.fetch(`kanda.${user.id}`) || 0;
     const c_sto = db.fetch(`sto.${user.id}`) || 0;
     const c_btc = db.fetch(`btc.${user.id}`) || 0;
+    const c_eth = db.fetch(`eth.${user.id}`) || 0;
+    const c_safe = db.fetch(`safe.${user.id}`) || 0;
+    const c_goat = db.fetch(`goat.${user.id}`) || 0;
     const embed_Bal = new Discord.MessageEmbed()
     .setTitle(`${user.tag}'s Balance`)
     .addFields(
@@ -141,7 +99,10 @@ if(option.toLowerCase() == "with"){
       {name: "Telokanda:", value: `<a:kanda:786546116317282355> ${c_kanda}`
       },
       {name: "Beyondcoin", value: `${process.env.bynd}${c_bynd}`},
-      {name: "Bitcoin" , value: `${process.env.btc}${c_btc} satoshi`}
+      {name: "Bitcoin" , value: `${process.env.btc}${c_btc} satoshi`},
+      {name: "Ethereum" , value: `${process.env.eth}${c_eth} gwei`},
+      {name: "Allsafe" , value: `${process.env.safe}${c_safe}`},
+      {name: "Goat Casj" , value: `${process.env.goat}${c_goay}`}
       )
     .setTimestamp()
     .setColor('BLUE');

@@ -16,6 +16,9 @@ module.exports = {
     const c_kanda = db.fetch(`kanda.${message.author.id}`) || 0;
     const c_bynd = db.fetch(`bynd.${message.author.id}`) || 0;
     const c_btc = db.fetch(`btc.${message.author.id}`) || 0;
+    const c_eth = db.fetch(`eth.${message.author.id}`) || 0;
+    const c_goat = db.fetch(`goat.${message.author.id}`) || 0;
+    const c_safe = db.fetch(`safe.${message.author.id}`) || 0;
     const btc = ["btc" , "sats" , "satoshi"];
     const bynd = ["bynd" , "beyond" , "beyondcoin"];
     const sto = ["sto" , "stoink"];
@@ -23,6 +26,7 @@ module.exports = {
     const safe = ["safe" , "allsafe"];
     const goat = ["goat" , "goat cash"];
     const doge = ["doge" , "dogecoin" , "d"];
+    const eth = ["eth" , "ethereum" , "gwei"];
     
     const amount = args[0];
     const currency = args[1];
@@ -37,6 +41,59 @@ module.exports = {
  else if(!currency){
       message.reply("Give what currency you want to withdraw");
      }
+     if(eth.includes(currency.toLowerCase())){
+       const all = db.fetch(`eth.${message.author.id}`) || 0;
+       if(amount.toLowerCase() == "all"){
+         if(c_eth == "0"){
+           message.reply("You dont have enough balance");
+         }
+   else if(c_eth >= all){
+      const log2 = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag}'s withdrawal`)
+     .addFields(
+       {name: `Currency:` , value: `ETH` },
+       {name: `Amount:`, value: `${process.env.eth} ${all} gwei` , inline: true},
+       {name: `Message Link` , value: `[Hover Link](${message.url})` , inline: true}
+       )
+       .setTimestamp()
+       .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
+       .setColor("BLUE");
+       db.subtract(`eth.${message.author.id}`, all);
+         db.add(`w_eth.${message.author.id}` , all);
+         db.add(`w_eth.stats` , all);
+     message.channel.send(`$tip <@${message.author.id}> ${all} gwei`);
+     message.guild.channels.cache.get("788612288293634069").send(log2);
+         
+       
+       
+    }
+  }
+    if(c_eth >= amount){
+const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag}'s withdrawal`)
+     .addFields(
+       {name: `Currency:` , value: `ETH` },
+       {name: `Amount:`, value: `${process.env.eth} ${amount} gwei` , inline: true},
+       {name: `Message Link` , value: `[Hover Link](${message.url})` , inline: true}
+       )
+       .setTimestamp()
+       .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
+       .setColor("BLUE");
+         db.subtract(`eth.${message.author.id}`, amount);
+         db.add(`w_eth.${message.author.id}` , amount)
+         db.add(`w_eth.stats` , amount)
+message.channel.send(`$tip <@${message.author.id}> ${amount} gwei`)
+
+message.guild.channels.cache.get("788612288293634069").send(log);
+     
+     
+         
+       }
+       else if(c_eth < amount){
+      message.reply(process.env.ERROR);
+      }
+     }
+    
      if(btc.includes(currency.toLowerCase())){
  const all = db.fetch(`btc.${message.author.id}`) || 0;
 const log = new Discord.MessageEmbed()
@@ -60,7 +117,7 @@ const log = new Discord.MessageEmbed()
        .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
        .setColor("BLUE");
        if(amount.toLowerCase() == "all"){
-         if(c_btc >= "0"){
+         if(c_btc == "0"){
            message.reply("You dont have enough balance");
          }
       else if(c_btc >= all){
@@ -90,7 +147,7 @@ message.guild.channels.cache.get("788612288293634069").send(log);
      if(bynd.includes(currency.toLowerCase())){
        const all = db.fetch(`bynd.${message.author.id}`) || 0;
        if(amount.toLowerCase() == "all"){
-         if(c_bynd >= "0"){
+         if(c_bynd == "0"){
            message.reply("You dont have enough balance");
          }
    else if(c_bynd >= all){
@@ -143,7 +200,7 @@ message.guild.channels.cache.get("788612288293634069").send(log);
  if(doge.includes(currency.toLowerCase())){
   const all = db.fetch(`doge.${message.author.id}`) || 0;
        if(amount.toLowerCase() == "all"){
-         if(c_doge >= "0"){
+         if(c_doge == "0"){
            message.reply("You dont have enough balance");
          }
    else if(c_doge >= all){
@@ -193,7 +250,7 @@ db.add(`w_doge.${message.author.id}`, amount);
   if(sto.includes(currency.toLowerCase())){
    const all = db.fetch(`sto.${message.author.id}`) || 0;
        if(amount.toLowerCase() == "all"){
-         if(c_sto >= "0"){
+         if(c_sto == "0"){
            message.reply("You dont have enough balance");
          }
     else if(c_sto >= all){
@@ -293,7 +350,7 @@ const log = new Discord.MessageEmbed()
       if(safe.includes(currency.toLowerCase())){
   const all = db.fetch(`safe.${message.author.id}`) || 0;
        if(amount.toLowerCase() == "all"){
-         if(c_kanda == "0"){
+         if(c_safe == "0"){
            message.reply("You dont have enough balance");
          }
    else if(c_safe >= all){
@@ -342,7 +399,7 @@ const log = new Discord.MessageEmbed()
    if(goat.includes(currency.toLowerCase())){
   const all = db.fetch(`goat.${message.author.id}`) || 0;
        if(amount.toLowerCase() == "all"){
-         if(c_kanda == "0"){
+         if(c_goat == "0"){
            message.reply("You dont have enough balance");
          }
    else if(c_goat >= all){

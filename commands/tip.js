@@ -6,31 +6,10 @@ module.exports = {
   description: "Tip other users currency",
   aliases: ["send"],
   execute(message, args){
-    /*function getUser(mention) {
-    if (!mention) return;
-    if (mention.startsWith("<@") && mention.endsWith(">")) {
-      var mention = mention.slice(2, -1);
-      if (mention.startsWith("!")) {
-        mention = mention.slice(1);
-      }
-      return message.guild.member(message.guild.members.get(mention));
+if(message.channel.type == "dm"){
+      message.reply("You cant claim Faucet on DM")
     }
-} */
      const user = message.mentions.users.first();
-     /*getUser(args[0]) || message.member;*/
-   /* function getUser(mention) {
-    if (!mention) return;
-    if (mention.startsWith("<@") && mention.endsWith(">")) {
-      var mention = mention.slice(2, -1);
-      if (mention.startsWith("!")) {
-        mention = mention.slice(1);
-      }
-      return message.guild.member(message.guild.members(mention));
-    }
-}
-    
-    let user = getUser(args[0]) || message.member; */
-   /* var emoji = [":money_mouth:" , ":money_with_wings:"]; */
     let c_doge = db.fetch(`doge.${message.author.id}`);
     let c_sto = db.fetch(`sto.${message.author.id}`);
     let c_kanda = db.fetch(`kanda.${message.author.id}`);
@@ -39,6 +18,14 @@ module.exports = {
     let emoji_doge = process.env.doge;
     let emoji_sto = process.env.sto;
     let emoji_kanda = process.env.kanda;
+    const btc = ["btc" , "sats" , "satoshi"];
+    const doge = ["doge" , "dogecoin" , "d"];
+    const sto = ["sto" , "stoink"];
+    const kanda = ["kanda"];
+    const safe = ["safe" , "allsafe"];
+    const goat = ["goat" , "goat cash"];
+    const bynd = ["bynd" , "beyond" , "beyondcoin"];
+    const eth = ["ethereum" , "eth" , "gwei"];
 function random_item(items)
 {
   
@@ -61,7 +48,7 @@ var items = [":money_mouth:" , ":money_with_wings:" , ":moneybag:"];
       return message.reply("**Please provide a valid number!**");
     if (!amount) return message.reply("**Please provide a number!**");
     if(!currency) return message.reply("**Please provide a currency!**");
-    if(currency == "doge"){
+    if(doge.includes(currency.toLowerCase())){
     if (c_doge < amount)
       return message.reply("**You don't have enough money for this command!**");
      if(c_doge >= amount){
@@ -72,18 +59,7 @@ var items = [":money_mouth:" , ":money_with_wings:" , ":moneybag:"];
     db.add(`doge.${user.id}`, amount);
        }
       }
-if(currency == "DOGE"){
-    if (c_doge < amount)
-      return message.reply("**You don't have enough money for this command!**");
-     if(c_doge >= amount){
-       message.channel.send(
-      `${random_item(items)} <@${message.author.id}> sent <@${user.id}> ${emoji_doge}${amount} DOGE`
-    );
-    db.subtract(`doge.${message.author.id}`, amount);
-    db.add(`doge.${user.id}`, amount);
-       }
-      }
-if(currency == "sto"){
+if(sto.includes(currency.toLowerCase())){
     if (c_sto < amount)
       return message.reply("**You don't have enough money for this command!**");
      if(c_sto >= amount){
@@ -94,18 +70,7 @@ if(currency == "sto"){
     db.add(`sto.${user.id}`, amount);
        }
       }
-if(currency == "STO"){
-    if (c_sto < amount)
-      return message.reply("**You don't have enough money for this command!**");
-     if(c_sto >= amount){
-       message.channel.send(
-      `${random_item(items)} <@${message.author.id}> sent <@${user.id}> ${emoji_sto}${amount} STO`
-    );
-    db.subtract(`sto.${message.author.id}`, amount);
-    db.add(`sto.${user.id}`, amount);
-       }
-      }
-if(currency == "KANDA"){
+if(kanda.includes(currency.toLowerCase())){
     if (c_kanda < amount)
       return message.reply("**You don't have enough money for this command!**");
      if(c_kanda >= amount){
@@ -116,17 +81,60 @@ if(currency == "KANDA"){
     db.add(`kanda.${user.id}`, amount);
        }
       }
-if(currency == "kanda"){
-    if (c_kanda < amount)
+    if(bynd.includes(currency.toLowerCase())){
+    if (c_bynd < amount)
       return message.reply("**You don't have enough money for this command!**");
-     if(c_kanda >= amount){
+     if(c_bynf >= amount){
        message.channel.send(
-      `${random_item(items)} <@${message.author.id}> sent <@${user.id}> ${emoji_kanda}${amount} KANDA`
+      `${random_item(items)} <@${message.author.id}> sent <@${user.id}> ${process.env.bynd}${amount} BYND`
     );
-    db.subtract(`kanda.${message.author.id}`, amount);
-    db.add(`kanda.${user.id}`, amount);
+    db.subtract(`bynd.${message.author.id}`, amount);
+    db.add(`bynd.${user.id}`, amount);
        }
-}
-    
+      }
+    if(btc.includes(currency.toLowerCase())){
+    if (c_btc < amount)
+      return message.reply("**You don't have enough money for this command!**");
+     if(c_btc >= amount){
+       message.channel.send(
+      `${random_item(items)} <@${message.author.id}> sent <@${user.id}> ${process.env.btc}${amount} satoshi`
+    );
+    db.subtract(`btc.${message.author.id}`, amount);
+    db.add(`btc.${user.id}`, amount);
+       }
+      }
+      if(eth.includes(currency.toLowerCase())){
+    if (c_eth < amount)
+      return message.reply("**You don't have enough money for this command!**");
+     if(c_eth >= amount){
+       message.channel.send(
+      `${random_item(items)} <@${message.author.id}> sent <@${user.id}> ${process.env.eth}${amount} gwei`
+    );
+    db.subtract(`eth.${message.author.id}`, amount);
+    db.add(`eth.${user.id}`, amount);
+       }
+      }
+      if(safe.includes(currency.toLowerCase())){
+    if (c_safe < amount)
+      return message.reply("**You don't have enough money for this command!**");
+     if(c_safe >= amount){
+       message.channel.send(
+      `${random_item(items)} <@${message.author.id}> sent <@${user.id}> ${process.env.safe}${amount} safe`
+    );
+    db.subtract(`safe.${message.author.id}`, amount);
+    db.add(`safe.${user.id}`, amount);
+       }
+      }
+      if(goat.includes(currency.toLowerCase())){
+    if (c_goat < amount)
+      return message.reply("**You don't have enough money for this command!**");
+     if(c_goat >= amount){
+       message.channel.send(
+      `${random_item(items)} <@${message.author.id}> sent <@${user.id}> ${process.env.goat}${amount} goat`
+    );
+    db.subtract(`goat.${message.author.id}`, amount);
+    db.add(`goat.${user.id}`, amount);
+       }
+      }
     }
   }

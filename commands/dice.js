@@ -22,8 +22,8 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
     var wageredD = db.fetch(
     var wageredR = db.fetch( */
     var currency = args[1];
-    const check_currency = db.fetch(`${currency}.${message.author.id}`) || 0;
-    var author = db.fetch(`${currency}.${message.author.id}`);
+    const check_currency = db.fetch(`${currency.toLowerCase()}.${message.author.id}`) || 0;
+    var author = db.fetch(`${currency.toLowerCase()}.${message.author.id}`);
  if(!currency){
    return message.reply("**Choose your currency you want to bet with**")
    }
@@ -31,15 +31,6 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
      message.channel.send("Invalid Currency")
      
    }
-/*if(currency == "bitcoin"){
-      return message.reply("You mean `btc`? use `g!dice btc [amount]`")
-      }
-    if(currency == "dogecoin"){
-      return message.reply("You mean `doge`? use `g!dice doge [amount]`")
-      }
-    if(currency == "reddcoin"){
-     return message.reply("You mean `rdd`? use `g!dice rdd [amount]`")
-    }    */
     if (author < amount) {
       return message.reply(
         "**The amount your betting on is more than your balance!**"
@@ -48,13 +39,11 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
     if (!amount) {
       return message.reply("**You must type in a number!**");
     }
-  /* if(isNan(amount)) return
-     message.reply("**It's an Invalid number**");
-   */
     if (author >= amount){
     if (random < 3) {
-     db.add(`${currency}.${message.author.id}`, amount);
-    const embed = new Discord.MessageEmbed()
+     db.add(`${currency.toLowerCase()}.${message.author.id}`, amount);
+     /*var total = author + amount;
+*/    const embed = new Discord.MessageEmbed()
         .setAuthor(
           `${message.author.username} rolled a dice and get number ${random}, and won!`,
           message.author.avatarURL
@@ -62,7 +51,7 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
         .setDescription(`Win`)
         .addFields(
           {name:"Profit:" , value: `${amount}`},
-        {name:"Previous Balance:", value: `${author}`}
+        {name:"Current Balance:", value: `${author}`}
         )
         .setColor("GREEN")
         .setFooter(process.env.F_CREDIT
@@ -73,6 +62,7 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
     }
     if (random > 4) {
       db.subtract(`${currency}.${message.author.id}`, amount);
+      const total = Math.floor(author - amount);
       const embed = new Discord.MessageEmbed()
         .setAuthor(
           `${message.author.username} rolled a dice and get number ${random}, and lost!`,
@@ -81,7 +71,7 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
         .setDescription(`Lost`)
         .addFields(
           {name:"Loss:" , value: `${amount}`},
-        {name: "Previous Balance", value: `${author}`}
+        {name: "Current Balance", value: `${total}`}
     )
         .setColor("RED")
         .setFooter(process.env.F_CREDIT

@@ -3,6 +3,9 @@ module.exports = {
   description: 'Purging messages',
   aliases: ['prune'],
   execute(message, args){
+    if(message.channel.type == "dm"){
+      message.reply("You cant claim Faucet on DM")
+    }
 message.delete({ timeout: 3000 });
     const amount = Math.floor(parseInt(args[0]) + 1);
     if (!message.member.hasPermission("MANAGE_MESSAGES"))
@@ -18,7 +21,7 @@ message.delete({ timeout: 3000 });
 
     message.channel.bulkDelete(amount, true);
     return message
-      .reply(`Successfully deleted ${amount} messages.\n\nThis message will be deleted in 3 secs`)
+      .reply(`Successfully deleted ${amount} messages.\nThis message will be deleted in 3 secs`)
       .then(msg => {
         msg.delete({ timeout: 3000 });
       });
