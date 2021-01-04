@@ -19,6 +19,7 @@ module.exports = {
     const reward_safe = db.fetch(`faucet_safe`) || 0;
     const reward_goat = db.fetch(`faucet_goat`) || 0;
     const reward_eth = db.fetch(`faucet_eth`) || 0;
+    const reward_btt = db.fetch(`faucet_btt`) || 0;
     const ads_space = db.fetch(`ads_text`) || "Open Space";
     const emoji_doge = process.env.doge;
     const emoji_kanda = process.env.kanda;
@@ -32,6 +33,7 @@ module.exports = {
     const goat = ["goat" , "goat cash"];
     const bynd = ["bynd" , "beyond" , "beyondcoin"];
     const eth = ["ethereum" , "eth" , "gwei"];
+    const btt = ["btt" , "bittorent" , "bittorents"]
 
     let timeout = 3500000;
     let daily =  db.get(`timer.${message.author.id}`);
@@ -42,10 +44,25 @@ module.exports = {
         `**You already claimed your reward. Come back in ${time.hours}h ${time.minutes}m ${time.seconds}s**\n\n[ADVERTISEMENT SPACE]\n${ads_space}\nContact "GameWatch21#2121" for Renting Ads`
       );
     }
-    
+    const blockedUsers = [ '', 'id2' ];
+     if (blockedUsers.includes(message.author.id)) return message.reply("Sorry you have been blocked by the bot because of Abusive/Alt/Cheat to our system, please contact the bot dev to unblock your id and give reason why you need to be unblocked");
     if(!args[0]){
-      message.reply("These are the coin you can claim\n```\n•DOGE\n•Kanda\n•STO\n•BYND\n•BTC\n•SAFE\n•GOAT\n```\n\nUse `f!faucet [CURRENCY]`");
+      message.reply("These are the coin you can claim\n```\n•DOGE\n•Kanda\n•STO\n•BYND\n•BTC\n•SAFE\n•GOAT\n•BTT\n```\n\nUse `f!faucet [CURRENCY]`");
       }
+      if(btt.includes(args[0].toLowerCase())){
+     const claims = db.fetch(`claims.${message.author.id}`);
+     const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag} claiming BTT`)
+     .setDescription(`This user already claim ${claims} times`)
+     .setTimestamp()
+     .setColor("GREEN");
+  db.add(`btt.${message.author.id}`, reward_btt);
+  db.add(`claims.${message.author.id}` , 1);
+  db.add(`claims.global` , 1);
+db.set(`timer.${message.author.id}`, Date.now());
+     message.reply(`earned **${process.env.btt}${reward_btt}** \n\n[ADVERTISEMENT SPACE]\n${ads_space}\nContact "GameWatch21#2121" for Renting`);
+       message.guild.channels.cache.get('789085255378272266').send(log);
+       } 
       if(eth.includes(args[0].toLowerCase())){
      const claims = db.fetch(`claims.${message.author.id}`);
      const log = new Discord.MessageEmbed()

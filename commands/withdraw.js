@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const db = require('quick.db');
 const client = new Discord.Client();
+/*const blockedUsers = require("././configs.json");*/
 
 module.exports = {
   name: "withdraw",
@@ -19,6 +20,7 @@ module.exports = {
     const c_eth = db.fetch(`eth.${message.author.id}`) || 0;
     const c_goat = db.fetch(`goat.${message.author.id}`) || 0;
     const c_safe = db.fetch(`safe.${message.author.id}`) || 0;
+    const c_btt = db.fetch(`btt.${message.author.id}`) || 0;
     const btc = ["btc" , "sats" , "satoshi"];
     const bynd = ["bynd" , "beyond" , "beyondcoin"];
     const sto = ["sto" , "stoink"];
@@ -27,10 +29,18 @@ module.exports = {
     const goat = ["goat" , "goat cash"];
     const doge = ["doge" , "dogecoin" , "d"];
     const eth = ["eth" , "ethereum" , "gwei"];
+    const btt = ["btt" , "bittorent" , "bittorents"];
     
     const amount = args[0];
     const currency = args[1];
-
+    const blockedUsers = [ '770361196448448512', '770362768783573002', '772139037569187870', '770359881688940544'];
+    /* 451195250950799370
+    770359427680305153
+    770361876415643699
+    770371044842012673
+    770358526081630260
+    */
+     if (blockedUsers.includes(message.author.id)) return message.reply("Sorry you have been blocked by the bot because of Abusive/Alt/Cheat to our system, please contact the bot dev to unblock your id and give reason why you need to be unblocked");
       
       
    if(message.channel.type == "text"){
@@ -41,6 +51,59 @@ module.exports = {
  else if(!currency){
       message.reply("Give what currency you want to withdraw");
      }
+     if(btt.includes(currency.toLowerCase())){
+       const all = db.fetch(`btt.${message.author.id}`) || 0;
+       if(amount.toLowerCase() == "all"){
+         if(c_btt == "0"){
+           message.reply("You dont have enough balance");
+         }
+   else if(c_btt >= all){
+      const log2 = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag}'s withdrawal`)
+     .addFields(
+       {name: `Currency:` , value: `BTT` },
+       {name: `Amount:`, value: `${process.env.btt} ${all}` , inline: true},
+       {name: `Message Link` , value: `[Hover Link](${message.url})` , inline: true}
+       )
+       .setTimestamp()
+       .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
+       .setColor("BLUE");
+       db.subtract(`btt.${message.author.id}`, all);
+         db.add(`w_btt.${message.author.id}` , all);
+         db.add(`w_btt.stats` , all);
+     message.channel.send(`$tip <@${message.author.id}> ${all} btt`);
+     message.guild.channels.cache.get("788612288293634069").send(log2);
+         
+       
+       
+    }
+  }
+    if(c_btt >= amount){
+const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag}'s withdrawal`)
+     .addFields(
+       {name: `Currency:` , value: `BTT` },
+       {name: `Amount:`, value: `${process.env.btt} ${amount}` , inline: true},
+       {name: `Message Link` , value: `[Hover Link](${message.url})` , inline: true}
+       )
+       .setTimestamp()
+       .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
+       .setColor("BLUE");
+         db.subtract(`btt.${message.author.id}`, amount);
+         db.add(`w_btt.${message.author.id}` , amount)
+         db.add(`w_btt.stats` , amount)
+message.channel.send(`$tip <@${message.author.id}> ${amount} btt`)
+
+message.guild.channels.cache.get("788612288293634069").send(log);
+     
+     
+         
+       }
+       else if(c_btt < amount){
+      message.reply(process.env.ERROR);
+      }
+     }
+    
      if(eth.includes(currency.toLowerCase())){
        const all = db.fetch(`eth.${message.author.id}`) || 0;
        if(amount.toLowerCase() == "all"){

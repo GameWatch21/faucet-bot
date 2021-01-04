@@ -13,6 +13,10 @@ if(message.channel.type == "dm"){
     let c_doge = db.fetch(`doge.${message.author.id}`);
     let c_sto = db.fetch(`sto.${message.author.id}`);
     let c_kanda = db.fetch(`kanda.${message.author.id}`);
+    let c_btc = db.fetch(`btc.${message.author.id}`);
+    let c_safe = db.fetch(`safe.${message.author.id}`);
+    let c_eth = db.fetch(`eth.${message.author.id}`);
+    let c_goat = db.fetch(`goat.${message.author.id}`);
     let amount = args[1];
     let currency = args[2]
     let emoji_doge = process.env.doge;
@@ -26,6 +30,16 @@ if(message.channel.type == "dm"){
     const goat = ["goat" , "goat cash"];
     const bynd = ["bynd" , "beyond" , "beyondcoin"];
     const eth = ["ethereum" , "eth" , "gwei"];
+        const blockedUsers = [ '770361196448448512', '770362768783573002', '772139037569187870', '770359881688940544'];
+    /* 451195250950799370
+    770359427680305153
+    770361876415643699
+    770371044842012673
+    770358526081630260
+
+    */
+     if (blockedUsers.includes(message.author.id)) return message.reply("Sorry you have been blocked by the bot because of Abusive/Alt/Cheat to our system, please contact the bot dev to unblock your id and give reason why you need to be unblocked");
+      
 function random_item(items)
 {
   

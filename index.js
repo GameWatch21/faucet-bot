@@ -117,8 +117,9 @@ client.once("ready", () => {
     };
    /*Tags.sync(); */
   }); 
-
+const blockedUsers = [ '', 'id2' ];
 client.on("message", message => {
+
  /*if (message.mentions(client.user)) {
     const embed = new Discord.MessageEmbed()
     .setTitle(`Hello ${message.author.username} 👋`)

@@ -28,11 +28,13 @@ module.exports = {
       const stats_goat = db.fetch(`w_goat.stats`) || 0;
       const stats_eth = db.fetch(`w_eth.stats`) || 0;
       const stats_safe = db.fetch(`w_safe.stats`) || 0;
+      const stats_btt = db.fetch(`w_btt.stats`) || 0;
       const stats = ["stats" , "statistic" , "stat" , "statistics"];
       const ann = ["ann" , "announcement" , "announce" , "announces" , "announcements"];
       const bal = ["bal" , "balance"];
       const bals = ["bals" , "balances"];
       const withdraw = ["with" , "withdraw"];
+      const database = ["btc" , "doge" , "eth" , "goat" , "bynd" , "safe" , "kanda" , "sto", "btt"];
     if(bal.includes(option.toLowerCase())){
       if(!option2){
         message.channel.send("$bal");
@@ -51,16 +53,17 @@ if(withdraw.includes(option.toLowerCase())){
     .setTitle(`Faucet Statistic`)
    .addFields(
     /* {name: `Withdrawal`}, */
-     {name: `Claimed Doge:` , value: `${process.env.doge}${stats_doge}` , inline: false},
-     {name: `Claimed Stoink:` , value: `${process.env.sto}${stats_sto}` , inline: false},
-     {name: `Claimed Kanda:` , value: `${process.env.kanda}${stats_kanda}` , inline: false},
-      {name: `Claimed BYND:` , value: `${process.env.bynd}${stats_bynd}` , inline: false},
-      {name: `Claimed BTC (satoshi):` , value: `${process.env.btc}${stats_btc}` , inline: false},
-      {name: `Claimed ETH (Gwei):` , value: `${process.env.eth}${stats_eth} gwei`},
-    {name: `Claimed Allsafe:` , value: `${process.env.safe}${stats_safe}`},
-    {name: `Claimed Goat Cash:` , value: `${process.env.goat}${stats_goat}`},
+     {name: `Withdrawed Doge:` , value: `${process.env.doge}${stats_doge}` , inline: false},
+     {name: `Withdrawed Stoink:` , value: `${process.env.sto}${stats_sto}` , inline: false},
+     {name: `Withdrawed Kanda:` , value: `${process.env.kanda}${stats_kanda}` , inline: false},
+      {name: `Withdrawed BYND:` , value: `${process.env.bynd}${stats_bynd}` , inline: false},
+      {name: `Withdrawed BTC (satoshi):` , value: `${process.env.btc}${stats_btc}` , inline: false},
+      {name: `Withdrawed ETH (Gwei):` , value: `${process.env.eth}${stats_eth} gwei`},
+    {name: `Withdrawed Allsafe:` , value: `${process.env.safe}${stats_safe}`},
+    {name: `Withdrawed Goat Cash:` , value: `${process.env.goat}${stats_goat}`},
+    {name: `Withdrawed Bittorent:` ,value: `${process.env.btt}${stats.btt}`},
   /*  {name: `Faucet Claims`},*/
-     {name: `Claims:` , value: `${claim_stats}` , inline: true}
+     {name: `Faucet Claimed:` , value: `${claim_stats}` , inline: true}
      )
      .setTimestamp()
      .setColor("GREEN");
@@ -89,6 +92,7 @@ if(withdraw.includes(option.toLowerCase())){
     const c_eth = db.fetch(`eth.${user.id}`) || 0;
     const c_safe = db.fetch(`safe.${user.id}`) || 0;
     const c_goat = db.fetch(`goat.${user.id}`) || 0;
+    const c_btt = db.fetch(`btt.${user.id}`) || 0;
     const embed_Bal = new Discord.MessageEmbed()
     .setTitle(`${user.tag}'s Balance`)
     .addFields(
@@ -98,11 +102,12 @@ if(withdraw.includes(option.toLowerCase())){
       },
       {name: "Telokanda:", value: `<a:kanda:786546116317282355> ${c_kanda}`
       },
-      {name: "Beyondcoin", value: `${process.env.bynd}${c_bynd}`},
-      {name: "Bitcoin" , value: `${process.env.btc}${c_btc} satoshi`},
-      {name: "Ethereum" , value: `${process.env.eth}${c_eth} gwei`},
-      {name: "Allsafe" , value: `${process.env.safe}${c_safe}`},
-      {name: "Goat Casj" , value: `${process.env.goat}${c_goay}`}
+      {name: "Beyondcoin:", value: `${process.env.bynd}${c_bynd}`},
+      {name: "Bitcoin:" , value: `${process.env.btc}${c_btc} satoshi`},
+      {name: "Ethereum:" , value: `${process.env.eth}${c_eth} gwei`},
+      {name: "Allsafe:" , value: `${process.env.safe}${c_safe}`},
+      {name: "Goat Cash:" , value: `${process.env.goat}${c_goat}`},
+      {name: "Bittorent:" , value: `${process.env.btt}${c_btt}`}
       )
     .setTimestamp()
     .setColor('BLUE');
@@ -116,17 +121,20 @@ if(!user){
     const total = db.fetch(`faucet_${option2}`);
     const currencies = args[1].toLowerCase();
     const amount = args[2];
+    const currencys = ["btc"];
     if(!option2){
-      message.reply("Please provide what currency you want to set")
+      message.reply("Please provide what currency you want to set");
     }
-     if(!currency){
-      message.reply("Please provide the number to set the faucet reward")
+     if(!amount){
+      message.reply("Please provide the number to set the faucet reward");
     }
-   else db.set(`faucet_${currencies}` , `${amount}`);
-   if(total == "undefined"){
-     message.reply("Is not a valid currency");
-   }
-   else message.reply(`${option2} Currency reward has been set to ${currency}`);
+    if(!database.includes(option2.toLowerCase())){
+      message.reply("You submit an invalid currency database");
+    }
+   if(database.includes(option2.toLowerCase())){
+     db.set(`faucet_${option2.toLowerCase()}` , `${amount}`);
+     message.reply(`**${option2.toUpperCase()}** currency reward has been set to **${amount}**`);
+  }
   }
   if(option == "ads"){
     const arg = args.slice(1).join(" ");
@@ -138,6 +146,16 @@ if(!user){
     db.delete(`timer.${user.id}`);
     message.reply(`${user.tag} timer has been reseted`)
   }
+  if(option == "faucet"){
+    const btc = db.fetch(`faucet_btc`);
+    const doge = db.fetch(`faucet_doge`);
+    const eth = db.fetch(`faucet_eth`);
+    const sto = db.fetch(`faucet_sto`);
+    const kanda = db.fetch(`faucet_kanda`);
+    const safe = db.fetch(`faucet_safe`);
+    const goat = db.fetch(`faucet_goat`);
+    const bynd = db.fetch(`faucet_bynd`);
+    message.channel.send(`Current Claim Rewards:\n•Bitcoin: ${btc} satoshi\n•Dogecoin: ${doge}\n•Stoink: ${sto}\n•Kanda: ${kanda}\n•Beyondcoin: ${bynd}\n•Allsafe: ${safe}\n•Goat Cash: ${goat}\nEthereum: ${eth} gwei`);
+  }
       }
 } 
-  

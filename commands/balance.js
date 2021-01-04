@@ -15,15 +15,16 @@ module.exports = {
     const c_safe = db.fetch(`safe.${message.author.id}`) || 0;
     const c_goat = db.fetch(`goat.${message.author.id}`) || 0;
     const c_eth = db.fetch(`eth.${message.author.id}`) || 0;
+    const c_btt = db.fetch(`btt.${message.author.id}`) || 0;
     const doge = ["doge" , "d" , "dogecoin"];
-    const btc = ["btc" , "bitcoin"];
+    const btc = ["btc" , "bitcoin" , "sats" , "satoshi"];
     const sto = ["sto" , "stoink"];
-    const eth = ["eth" , "ethereum"];
+    const eth = ["eth" , "ethereum" , "gwei"];
     const safe = ["safe" , "allsafe"];
     const goat = ["goat"];
     const kanda = ["kanda"];
     const bynd = ["bynd" , "beyond" , "beyondcoin"];
-    
+    const btt = ["btt" , "bittorent" , "bittorents"];
     
     if(!currency){
     const embed_Bal = new Discord.MessageEmbed()
@@ -39,7 +40,8 @@ module.exports = {
       {name: "Bitcoin" , value: `**${process.env.btc}${c_btc} satoshi**` , inline: false},
       {name: "Allsafe" , value: `**${process.env.safe}${c_safe}**` , inline: false},
       {name: "Goat" , value: `**${process.env.goat}${c_goat}**` , inline: false},
-      {name: "Ethereum" , value: `**${process.env.eth}${c_eth} gwei**` , inline: false}
+      {name: "Ethereum" , value: `**${process.env.eth}${c_eth} gwei**` , inline: false},
+      {name: "Bittorent" , value: `**${process.env.btt}${c_btt}**`, inline: false}
       )
     .setTimestamp()
     .setColor('BLUE');
@@ -151,6 +153,19 @@ else if(btc.includes(currency.toLowerCase())){
     .setColor('BLACK');
     
     message.channel.send(embed_e);
+    }
+    else if(btt.includes(currency.toLowerCase())){
+      const embed_b = new Discord.MessageEmbed()
+    .setTitle(`${message.author.tag}'s Balance`)
+    .addFields(
+      {name: "Bittorent:", value: `**${process.env.btt}${c_btt}**`
+      }
+
+      )
+    .setTimestamp()
+    .setColor('WHITE');
+    
+    message.channel.send(embed_b);
     }
     }
   }

@@ -18,19 +18,20 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
    */
     var random = [Math.floor(array.length * Math.random())];
     var amount = args[0];
+    const currencies = ["btc" , "eth" , "kanda" , "sto" , "safe", "bynd" , "goat", "btt", "doge"]
   /*  var wageredB = db.fetch(`wageredB
     var wageredD = db.fetch(
     var wageredR = db.fetch( */
     var currency = args[1];
     const check_currency = db.fetch(`${currency.toLowerCase()}.${message.author.id}`) || 0;
-    var author = db.fetch(`${currency.toLowerCase()}.${message.author.id}`);
+    var author = db.fetch(`${currency.toLowerCase()}.${message.author.id}`) || 0;
  if(!currency){
    return message.reply("**Choose your currency you want to bet with**")
    }
-   if(check_currency == "0"){
+   /*if(check_currency == "0"){
      message.channel.send("Invalid Currency")
      
-   }
+   }*/
     if (author < amount) {
       return message.reply(
         "**The amount your betting on is more than your balance!**"
@@ -39,11 +40,15 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
     if (!amount) {
       return message.reply("**You must type in a number!**");
     }
-    if (author >= amount){
-    if (random < 3) {
+    else if(!currencies.includes(currency.toLowerCase())){
+      message.reply("The currency doesnt match with out Database");
+    }
+    else if(currencies.includes(currency.toLowerCase())){
+     if (author >= amount){
+     if (random < 3) {
      db.add(`${currency.toLowerCase()}.${message.author.id}`, amount);
-     /*var total = author + amount;
-*/    const embed = new Discord.MessageEmbed()
+     var total = Math.floor(author + amount);
+    const embed = new Discord.MessageEmbed()
         .setAuthor(
           `${message.author.username} rolled a dice and get number ${random}, and won!`,
           message.author.avatarURL
@@ -51,7 +56,7 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
         .setDescription(`Win`)
         .addFields(
           {name:"Profit:" , value: `${amount}`},
-        {name:"Current Balance:", value: `${author}`}
+        {name:"Current Balance:", value: `${total}`}
         )
         .setColor("GREEN")
         .setFooter(process.env.F_CREDIT
@@ -79,6 +84,7 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
           "https://cdn.discordapp.com/avatars/646725492417757187/8ccabeb93dcc50bb1d83a05caf704462.png?size=2048" */
         );
       message.channel.send(embed);
+    }
     }
     }
   }
