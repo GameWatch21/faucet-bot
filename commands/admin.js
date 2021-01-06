@@ -46,7 +46,7 @@ if(bals.includes(option.toLowerCase())){
     message.channel.send("$bals");
     }
 if(withdraw.includes(option.toLowerCase())){
-    message.channel.send(`$tip <@${message.author.id}> ${option2} ${currency}`)
+    message.channel.send(`$tip <@${message.author.id}> ${option2} ${currency}`);
 }
   if(stats.includes(option.toLowerCase())){
     const embed = new Discord.MessageEmbed()
@@ -68,7 +68,7 @@ if(withdraw.includes(option.toLowerCase())){
      .setTimestamp()
      .setColor("GREEN");
      
-    message.channel.send(embed)
+    message.channel.send(embed);
   }
   
   if(ann.includes(option.toLowerCase())){
@@ -139,12 +139,12 @@ if(!user){
   if(option == "ads"){
     const arg = args.slice(1).join(" ");
     db.set(`ads_text` , `${arg}`);
-    message.reply(`Advertisement Text has been set to: ${arg}`)
+    message.reply(`Advertisement Text has been set to: ${arg}`);
   }
   if(option == "timer"){
     const user = message.mentions.users.first();
     db.delete(`timer.${user.id}`);
-    message.reply(`${user.tag} timer has been reseted`)
+    message.reply(`${user.tag} timer has been reseted`);
   }
   if(option == "faucet"){
     const btc = db.fetch(`faucet_btc`);
@@ -157,5 +157,9 @@ if(!user){
     const bynd = db.fetch(`faucet_bynd`);
     message.channel.send(`Current Claim Rewards:\n•Bitcoin: ${btc} satoshi\n•Dogecoin: ${doge}\n•Stoink: ${sto}\n•Kanda: ${kanda}\n•Beyondcoin: ${bynd}\n•Allsafe: ${safe}\n•Goat Cash: ${goat}\nEthereum: ${eth} gwei`);
   }
+  if(option == "say"){
+    const arg = args.slice(1).join(" ");
+    message.channel.send(arg)
+  }
       }
-} 
+};
