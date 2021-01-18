@@ -35,6 +35,7 @@ module.exports = {
       const bals = ["bals" , "balances"];
       const withdraw = ["with" , "withdraw"];
       const database = ["btc" , "doge" , "eth" , "goat" , "bynd" , "safe" , "kanda" , "sto", "btt"];
+      const switching = ["on" , "off"];
     if(bal.includes(option.toLowerCase())){
       if(!option2){
         message.channel.send("$bal");
@@ -52,7 +53,6 @@ if(withdraw.includes(option.toLowerCase())){
     const embed = new Discord.MessageEmbed()
     .setTitle(`Faucet Statistic`)
    .addFields(
-    /* {name: `Withdrawal`}, */
      {name: `Withdrawed Doge:` , value: `${process.env.doge}${stats_doge}` , inline: false},
      {name: `Withdrawed Stoink:` , value: `${process.env.sto}${stats_sto}` , inline: false},
      {name: `Withdrawed Kanda:` , value: `${process.env.kanda}${stats_kanda}` , inline: false},
@@ -62,7 +62,7 @@ if(withdraw.includes(option.toLowerCase())){
     {name: `Withdrawed Allsafe:` , value: `${process.env.safe}${stats_safe}`},
     {name: `Withdrawed Goat Cash:` , value: `${process.env.goat}${stats_goat}`},
     {name: `Withdrawed Bittorent:` ,value: `${process.env.btt}${stats.btt}`},
-  /*  {name: `Faucet Claims`},*/
+
      {name: `Faucet Claimed:` , value: `${claim_stats}` , inline: true}
      )
      .setTimestamp()
@@ -78,8 +78,19 @@ if(withdraw.includes(option.toLowerCase())){
   if(option == 'reset'){
     const currency = args[1];
     const user = message.mentions.users.first();
+    if(!user){
+      message.reply("Mention a user you want to reset");
+    }
+    else if(!currency){
+      message.reply("What currency you want to reset?");
+    }
+    if(!database.includes(currency.toLowerCase())){
+      message.reply("Invalid Currency Database");
+    }
+    if(database.includes(currency.toLowerCase())){
     db.delete(`${currency}.${user.id}`);
     message.channel.send(`${user.tag}'s ${currency} balance is reseted`);
+    }
   }
   if(option == 'check'){
     
@@ -155,11 +166,23 @@ if(!user){
     const safe = db.fetch(`faucet_safe`);
     const goat = db.fetch(`faucet_goat`);
     const bynd = db.fetch(`faucet_bynd`);
-    message.channel.send(`Current Claim Rewards:\n•Bitcoin: ${btc} satoshi\n•Dogecoin: ${doge}\n•Stoink: ${sto}\n•Kanda: ${kanda}\n•Beyondcoin: ${bynd}\n•Allsafe: ${safe}\n•Goat Cash: ${goat}\nEthereum: ${eth} gwei`);
+    const btt = db.fetch(`faucet_btt`);
+    const status = db.fetch(`status`);
+    message.channel.send(`Faucet Status: **${status.toUpperCase()}**\nCurrent Claim Rewards:\`\`\`\n•Bitcoin: ${btc} satoshi\n•Dogecoin: ${doge}\n•Stoink: ${sto}\n•Kanda: ${kanda}\n•Beyondcoin: ${bynd}\n•Allsafe: ${safe}\n•Goat Cash: ${goat}\nEthereum: ${eth} gwei\nBittorent: ${btt}\n\`\`\``);
   }
   if(option == "say"){
     const arg = args.slice(1).join(" ");
     message.channel.send(arg)
+  }
+  if(option == "status"){
+    const status = args[1];
+    if(!switching.includes(option2.toLowerCase())){
+      message.reply("You can switch the faucet to on/off");
+    }
+    if(switching.includes(option2.toLowerCase())){
+      message.channel.send(`The faucet is now set to \`${option2}\``)
+      db.set("status" , option2);
+    }
   }
       }
 };

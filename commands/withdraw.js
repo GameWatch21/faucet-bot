@@ -45,13 +45,13 @@ module.exports = {
       
    if(message.channel.type == "text"){
     if(!amount){ 
-      message.channel.send("Use `g!withdraw [AMOUNT] [CURRENCY]`\nAvailable Currencies:\n•DOGE\n•STO\n•KANDA\n•BYND\n•BTC\n•SAFE\n•GOAT");
-      } 
+      message.channel.send("Use `f!withdraw [AMOUNT] [CURRENCY]`\nAvailable Currencies:\n•DOGE\n•STO\n•KANDA\n•BYND\n•BTC\n•SAFE\n•GOAT");
+      }
 
  else if(!currency){
       message.reply("Give what currency you want to withdraw");
      }
-     if(btt.includes(currency.toLowerCase())){
+  else if(btt.includes(currency.toLowerCase())){
        const all = db.fetch(`btt.${message.author.id}`) || 0;
        if(amount.toLowerCase() == "all"){
          if(c_btt == "0"){
@@ -104,7 +104,7 @@ message.guild.channels.cache.get("788612288293634069").send(log);
       }
      }
     
-     if(eth.includes(currency.toLowerCase())){
+     else if(eth.includes(currency.toLowerCase())){
        const all = db.fetch(`eth.${message.author.id}`) || 0;
        if(amount.toLowerCase() == "all"){
          if(c_eth == "0"){
@@ -157,7 +157,7 @@ message.guild.channels.cache.get("788612288293634069").send(log);
       }
      }
     
-     if(btc.includes(currency.toLowerCase())){
+     else if(btc.includes(currency.toLowerCase())){
  const all = db.fetch(`btc.${message.author.id}`) || 0;
 const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag}'s withdrawal`)
@@ -207,7 +207,7 @@ message.guild.channels.cache.get("788612288293634069").send(log);
       message.reply(process.env.ERROR);
       }
      }
-     if(bynd.includes(currency.toLowerCase())){
+    else if(bynd.includes(currency.toLowerCase())){
        const all = db.fetch(`bynd.${message.author.id}`) || 0;
        if(amount.toLowerCase() == "all"){
          if(c_bynd == "0"){
@@ -260,7 +260,7 @@ message.guild.channels.cache.get("788612288293634069").send(log);
       }
      }
     
- if(doge.includes(currency.toLowerCase())){
+ else if(doge.includes(currency.toLowerCase())){
   const all = db.fetch(`doge.${message.author.id}`) || 0;
        if(amount.toLowerCase() == "all"){
          if(c_doge == "0"){
@@ -310,7 +310,7 @@ db.add(`w_doge.${message.author.id}`, amount);
       }
 
  
-  if(sto.includes(currency.toLowerCase())){
+  else if(sto.includes(currency.toLowerCase())){
    const all = db.fetch(`sto.${message.author.id}`) || 0;
        if(amount.toLowerCase() == "all"){
          if(c_sto == "0"){
@@ -359,7 +359,7 @@ db.add(`w_sto.${message.author.id}`, amount);
         }
       }
 
-   if(kanda.includes(currency.toLowerCase())){
+   else if(kanda.includes(currency.toLowerCase())){
   const all = db.fetch(`kanda.${message.author.id}`) || 0;
        if(amount.toLowerCase() == "all"){
          if(c_kanda == "0"){
@@ -410,7 +410,7 @@ const log = new Discord.MessageEmbed()
       }
 
       
-      if(safe.includes(currency.toLowerCase())){
+    else if(safe.includes(currency.toLowerCase())){
   const all = db.fetch(`safe.${message.author.id}`) || 0;
        if(amount.toLowerCase() == "all"){
          if(c_safe == "0"){
@@ -459,7 +459,7 @@ const log = new Discord.MessageEmbed()
        }
     
       }
-   if(goat.includes(currency.toLowerCase())){
+  else if(goat.includes(currency.toLowerCase())){
   const all = db.fetch(`goat.${message.author.id}`) || 0;
        if(amount.toLowerCase() == "all"){
          if(c_goat == "0"){

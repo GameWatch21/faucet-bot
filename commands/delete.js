@@ -11,23 +11,11 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
         "**You don't have enough permissions for this command!**"
       );
     }
-  /*  function getUser(mention) {
-    if (!mention) return;
-    if (mention.startsWith("<@") && mention.endsWith(">")) {
-      var mention = mention.slice(2, -1);
-      if (mention.startsWith("!")) {
-        mention = mention.slice(1);
-      }
-      return message.guild.member(message.guild.members.get(mention));
-    }
-} */
     
     let amount = args[1];
     let currency = args[2];
     let taggedUser = message.mentions.users.first();
-  /*  let user = getUser(args[0]) || message.member; */
-/*if (a.bot)
-      return message.channel.send("Economy commands don't work on bots."); */
+    const able = ["btc" , "doge" , "bynd" , "btt" , "sto" , "kanda" , "eth" , "safe" , "goat"];
     
     if (isNaN(amount))
       return message.reply("**Please provide a proper number!**");
@@ -36,47 +24,13 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
       return message.reply(
         "**You need to specify a number for this command!**"
       ); */
-      if(currency == "doge"){
-message.channel.send(
-      `Deleted ${process.env.doge}${amount} DOGE to ${taggedUser.username}'s account.`
-    );
-        db.subtract(`doge.${taggedUser.id}`, amount)
-      }
-if(currency == "DOGE"){
-message.channel.send(
-      `Deleted ${process.env.doge}${amount} DOGE to ${taggedUser.username}'s account.`
-    );
-        db.subtract(`doge.${taggedUser.id}`, amount)
-      }
-if(currency == "sto"){
-message.channel.send(
-      `Deleted ${process.env.sto}${amount} STO to ${taggedUser.username}'s account.`
-    );
-        db.subtract(`sto.${taggedUser.id}`, amount)
-      }
-if(currency == "STO"){
-message.channel.send(
-      `Deleted ${process.env.sto}${amount} STO to ${taggedUser.username}'s account.`
-    );
-        db.subtract(`sto.${taggedUser.id}`, amount)
-      }
-if(currency == "kanda"){
-message.channel.send(
-      `Deleted ${process.env.kanda}${amount} KANDA to ${taggedUser.username}'s account.`
-    );
-        db.subtract(`kanda.${taggedUser.id}`, amount)
-      }
-if(currency == "KANDA"){
-message.channel.send(
-      `Deleted ${process.env.kanda}${amount} KANDA to ${taggedUser.username}'s account.`
-    );
-        db.subtract(`kanda.${taggedUser.id}`, amount)
-      }
-/*message.channel.send(
-      `Added $${money} to ${user.user.username}'s account.`
-    );
-    db.add(`money.${user.id}`, money);
-    */
-  }
+    if(!able.includes(currency.toLowerCase())){
+      message.reply("Invalid Currency Database Code");
+    }
+    if(able.includes(currency.toLowerCase())){
+      message.channel.send(`${amount} ${currency.toUpperCase()} has been taken from ${taggedUser.username}'s Account`);
+      db.subtract(`${currency}.${taggedUser.id}` , amount);
+    }
+}
   
 }

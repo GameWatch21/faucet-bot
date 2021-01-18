@@ -34,7 +34,7 @@ module.exports = {
     const bynd = ["bynd" , "beyond" , "beyondcoin"];
     const eth = ["ethereum" , "eth" , "gwei"];
     const btt = ["btt" , "bittorent" , "bittorents"];
-
+    const status = db.fetch("status") || "on";
     let timeout = 3500000;
     let daily =  db.get(`timer.${message.author.id}`);
     if(message.channel.type == "text"){
@@ -49,7 +49,10 @@ module.exports = {
     if(!args[0]){
       message.reply("These are the coin you can claim\n```\n•DOGE\n•Kanda\n•STO\n•BYND\n•BTC\n•SAFE\n•GOAT\n•BTT\n```\n\nUse `f!faucet [CURRENCY]`");
       }
-      else if(btt.includes(args[0].toLowerCase())){
+       if(status == "off"){
+     message.reply("Faucet is closed for now, Please check again later");
+   }
+     else if(btt.includes(args[0].toLowerCase())){
      const claims = db.fetch(`claims.${message.author.id}`);
      const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag} claiming BTT`)
@@ -63,7 +66,7 @@ db.set(`timer.${message.author.id}`, Date.now());
      message.reply(`earned **${process.env.btt}${reward_btt}** \n\n[ADVERTISEMENT SPACE]\n${ads_space}\nContact "GameWatch21#2121" for Renting`);
        message.guild.channels.cache.get('789085255378272266').send(log);
        } 
-    else  if(eth.includes(args[0].toLowerCase())){
+  else if(eth.includes(args[0].toLowerCase())){
      const claims = db.fetch(`claims.${message.author.id}`);
      const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag} claiming ETH`)
@@ -77,7 +80,7 @@ db.set(`timer.${message.author.id}`, Date.now());
      message.reply(`earned **${process.env.eth}${reward_eth} gwei** \n\n[ADVERTISEMENT SPACE]\n${ads_space}\nContact "GameWatch21#2121" for Renting`);
        message.guild.channels.cache.get('789085255378272266').send(log);
        } 
- else  if(goat.includes(args[0].toLowerCase())){
+ else if(goat.includes(args[0].toLowerCase())){
      const claims = db.fetch(`claims.${message.author.id}`);
      const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag} claiming Goat`)
@@ -91,7 +94,7 @@ db.set(`timer.${message.author.id}`, Date.now());
      message.reply(`earned **${process.env.goat}${reward_goat}** \n\n[ADVERTISEMENT SPACE]\n${ads_space}\nContact "GameWatch21#2121" for Renting`);
        message.guild.channels.cache.get('789085255378272266').send(log);
        } 
-   else if(safe.includes(args[0].toLowerCase())){
+    else if(safe.includes(args[0].toLowerCase())){
      const claims = db.fetch(`claims.${message.author.id}`);
      const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag} claiming Allsafe`)
@@ -105,7 +108,7 @@ db.set(`timer.${message.author.id}`, Date.now());
      message.reply(`earned **${process.env.safe}${reward_safe}** \n\n[ADVERTISEMENT SPACE]\n${ads_space}\nContact "GameWatch21#2121" for Renting`);
        message.guild.channels.cache.get('789085255378272266').send(log);
        }    
-  else if(btc.includes(args[0].toLowerCase())){
+ else if(btc.includes(args[0].toLowerCase())){
      const claims = db.fetch(`claims.${message.author.id}`);
      const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag} claiming satoshi`)
@@ -119,7 +122,7 @@ db.set(`timer.${message.author.id}`, Date.now());
      message.reply(`earned **${process.env.btc}${reward_btc}** satoshi\n\n[ADVERTISEMENT SPACE]\n${ads_space}\nContact "GameWatch21#2121" for Renting`);
        message.guild.channels.cache.get('789085255378272266').send(log);
        } 
-    else  if(bynd.includes(args[0].toLowerCase())){
+    else if(bynd.includes(args[0].toLowerCase())){
      const claims = db.fetch(`claims.${message.author.id}`);
      const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag} claiming BYND`)
@@ -135,7 +138,7 @@ db.set(`timer.${message.author.id}`, Date.now());
        }
        
        
-  else if(doge.includes(args[0].toLowerCase())){
+ else if(doge.includes(args[0].toLowerCase())){
      const claims = db.fetch(`claims.${message.author.id}`);
      const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag} claiming DOGE`)
@@ -150,7 +153,7 @@ db.set(`timer.${message.author.id}`, Date.now());
        message.guild.channels.cache.get('789085255378272266').send(log);
        } 
 
-   else if(sto.includes(args[0].toLowerCase())){
+  else if(sto.includes(args[0].toLowerCase())){
 const claims = db.fetch(`claims.${message.author.id}`);
      const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag} claiming STO`)
@@ -182,5 +185,7 @@ const claims = db.fetch(`claims.${message.author.id}`);
       }
  
     }
+    
+    
     }
   };

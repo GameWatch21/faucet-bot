@@ -30,6 +30,7 @@ if(message.channel.type == "dm"){
     const goat = ["goat" , "goat cash"];
     const bynd = ["bynd" , "beyond" , "beyondcoin"];
     const eth = ["ethereum" , "eth" , "gwei"];
+    const able = ["btc" , "doge" , "kanda" , "sto" , "bynd" , "eth" , "goat"];
         const blockedUsers = [ '770361196448448512', '770362768783573002', '772139037569187870', '770359881688940544'];
     /* 451195250950799370
     770359427680305153
