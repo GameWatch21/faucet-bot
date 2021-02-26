@@ -18,7 +18,7 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
    */
     var random = [Math.floor(array.length * Math.random())];
     var amount = args[0];
-    const currencies = ["btc" , "eth" , "kanda" , "sto" , "safe", "bynd" , "goat", "btt", "doge"]
+    const currencies = ["usd"]
     var currency = args[1];
     const check_currency = db.fetch(`${currency.toLowerCase()}.${message.author.id}`) || 0;
     var author = db.fetch(`${currency.toLowerCase()}.${message.author.id}`) || 0;

@@ -7,34 +7,44 @@ module.exports = {
   aliases: ["bal" , "bals" , "balances"],
   execute(message, args){
     const currency = args[0];
-    const c_doge = db.fetch(`doge.${message.author.id}`) || 0;
-    const c_bynd = db.fetch(`bynd.${message.author.id}`) || 0;
-    const c_kanda = db.fetch(`kanda.${message.author.id}`) || 0;
-    const c_sto = db.fetch(`sto.${message.author.id}`) || 0;
-    const c_btc = db.fetch(`btc.${message.author.id}`) || 0;
-    const c_safe = db.fetch(`safe.${message.author.id}`) || 0;
-    const c_goat = db.fetch(`goat.${message.author.id}`) || 0;
-    const c_eth = db.fetch(`eth.${message.author.id}`) || 0;
-    const c_btt = db.fetch(`btt.${message.author.id}`) || 0;
-    const doge = ["doge" , "d" , "dogecoin"];
-    const btc = ["btc" , "bitcoin" , "sats" , "satoshi"];
-    const sto = ["sto" , "stoink"];
-    const eth = ["eth" , "ethereum" , "gwei"];
-    const safe = ["safe" , "allsafe"];
-    const goat = ["goat"];
-    const kanda = ["kanda"];
-    const bynd = ["bynd" , "beyond" , "beyondcoin"];
-    const btt = ["btt" , "bittorent" , "bittorents"];
     
+    const c_usd = db.fetch(`usd.${message.author.id}`) || 0
+
+    const embed_Bal = new Discord.MessageEmbed()
+    .setTitle(`${message.author.tag}'s Balance`)
+    .addFields(
+      {
+      name: "USD:", 
+      value: `**${process.env.usd} ${c_usd}**`, 
+      inline: false
+      }
+     )
+    .setTimestamp()
+    .setFooter(`Withdraw your balance with "f!withdraw"`)
+    .setColor('BLUE');
+    
+    
+    message.channel.send(embed_Bal);
+    
+    /*
     if(!currency){
     const embed_Bal = new Discord.MessageEmbed()
     .setTitle(`${message.author.tag}'s Balance`)
     .addFields(
-      {name: "Doge:", value: `**<:doge:786536788768194560>  ${c_doge}**` , inline: false
+      {
+      name: "Doge:", 
+      value: `**<:doge:786536788768194560>  ${c_doge}**`, 
+      inline: false
       },
-      {name: "Stoink:", value: `**<a:sto:786546176966918144> ${c_sto}**` , inline: false
+      {
+      name: "Stoink:", 
+      value: `**<a:sto:786546176966918144> ${c_sto}**`,
+      inline: false
       },
-      {name: "Telokanda:", value: `**<a:kanda:786546116317282355> ${c_kanda}**` , inline: false
+      {
+      name: "Telokanda:",
+      value: `**<a:kanda:786546116317282355> ${c_kanda}**`,
+      inline: false
       },
       {name: "Beyondcoin", value: `**${process.env.bynd}${c_bynd}**` , inline: false},
       {name: "Bitcoin" , value: `**${process.env.btc}${c_btc} satoshi**` , inline: false},
@@ -167,5 +177,6 @@ else if(btc.includes(currency.toLowerCase())){
     
     message.channel.send(embed_b);
     }
+    */
     }
   }

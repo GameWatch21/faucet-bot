@@ -10,27 +10,11 @@ if(message.channel.type == "dm"){
       message.reply("You cant claim Faucet on DM")
     }
      const user = message.mentions.users.first();
-    let c_doge = db.fetch(`doge.${message.author.id}`);
-    let c_sto = db.fetch(`sto.${message.author.id}`);
-    let c_kanda = db.fetch(`kanda.${message.author.id}`);
-    let c_btc = db.fetch(`btc.${message.author.id}`);
-    let c_safe = db.fetch(`safe.${message.author.id}`);
-    let c_eth = db.fetch(`eth.${message.author.id}`);
-    let c_goat = db.fetch(`goat.${message.author.id}`);
+    
+    let c_usd = db.fetch(`usd.${message.author.id}`);
     let amount = args[1];
     let currency = args[2]
-    let emoji_doge = process.env.doge;
-    let emoji_sto = process.env.sto;
-    let emoji_kanda = process.env.kanda;
-    const btc = ["btc" , "sats" , "satoshi"];
-    const doge = ["doge" , "dogecoin" , "d"];
-    const sto = ["sto" , "stoink"];
-    const kanda = ["kanda"];
-    const safe = ["safe" , "allsafe"];
-    const goat = ["goat" , "goat cash"];
-    const bynd = ["bynd" , "beyond" , "beyondcoin"];
-    const eth = ["ethereum" , "eth" , "gwei"];
-    const able = ["btc" , "doge" , "kanda" , "sto" , "bynd" , "eth" , "goat"];
+    
         const blockedUsers = [ '770361196448448512', '770362768783573002', '772139037569187870', '770359881688940544'];
     /* 451195250950799370
     770359427680305153
@@ -58,11 +42,35 @@ var items = [":money_mouth:" , ":money_with_wings:" , ":moneybag:"];
       return message.channel.send("**You cant tip other bots!**");
     if (user.id === message.author.id)
       return message.reply("**You cannot tip yourself!**");
-    
+    /*
     if (isNaN(amount))
       return message.reply("**Please provide a valid number!**");
+      */
     if (!amount) return message.reply("**Please provide a number!**");
-    if(!currency) return message.reply("**Please provide a currency!**");
+    
+    if(amount == "all"){
+      if(c_usd < 0){
+     message.reply("**You don't have enough momey to tip**");
+      }
+     if(c_usd >= 0){
+       message.channel.send(
+      `${random_item(items)} <@${message.author.id}> sent <@${user.id}> ${process.env.usd}${c_usd} USD`);
+    db.subtract(`usd.${message.author.id}`, c_usd);
+    db.add(`usd.${user.id}`, c_usd);
+     }
+    }
+    if(amount != "all"){
+    if(c_usd < amount){
+      message.reply("**You don't have enough momey to tip**")
+    }
+    if(c_usd >= amount){
+      message.channel.send(
+      `${random_item(items)} <@${message.author.id}> sent <@${user.id}> ${process.env.usd}${amount} USD`);
+    db.subtract(`usd.${message.author.id}`, amount);
+    db.add(`usd.${user.id}`, amount);
+    }
+    }
+    /*
     if(doge.includes(currency.toLowerCase())){
     if (c_doge < amount)
       return message.reply("**You don't have enough money for this command!**");
@@ -149,7 +157,9 @@ if(kanda.includes(currency.toLowerCase())){
     );
     db.subtract(`goat.${message.author.id}`, amount);
     db.add(`goat.${user.id}`, amount);
+    
        }
-      }
+       */
+      
     }
   }

@@ -14,143 +14,119 @@ module.exports = {
       return message.reply(
         "**You don't have enough permissions for this command!**"
       );
+      // [VARIABLES]
        const user = message.mentions.users.first();
       const option = args[0];
       const option2 = args[1];
       const currency = args[2];
       const input = args[3];
-      const stats_doge = db.fetch(`w_doge.stats`) || 0;
-      const stats_sto = db.fetch(`w_sto.stats`) || 0;
-      const stats_kanda = db.fetch(`w_kanda.stats`) || 0;
       const claim_stats = db.fetch(`claims.global`) || 0;
-      const stats_bynd = db.fetch(`w_bynd.stats`) || 0;
-      const stats_btc = db.fetch(`w_btc.stats`) || 0;
-      const stats_goat = db.fetch(`w_goat.stats`) || 0;
-      const stats_eth = db.fetch(`w_eth.stats`) || 0;
-      const stats_safe = db.fetch(`w_safe.stats`) || 0;
-      const stats_btt = db.fetch(`w_btt.stats`) || 0;
+      const stats_usd = db.fetch(`w_usd.stats`) || 0;
       const stats = ["stats" , "statistic" , "stat" , "statistics"];
       const ann = ["ann" , "announcement" , "announce" , "announces" , "announcements"];
       const bal = ["bal" , "balance"];
       const bals = ["bals" , "balances"];
       const withdraw = ["with" , "withdraw"];
-      const database = ["btc" , "doge" , "eth" , "goat" , "bynd" , "safe" , "kanda" , "sto", "btt"];
+      const database = ["usd"];
       const switching = ["on" , "off"];
+    // [MAIN FUNCTION]
+    
+    // [CHECKING BOT BALANCE]
     if(bal.includes(option.toLowerCase())){
       if(!option2){
         message.channel.send("$bal");
       }
-    
-  else  message.channel.send(`$bal ${option2}`);
+    else  message.channel.send(`$bal ${option2}`);
     }
-if(bals.includes(option.toLowerCase())){
+    if(bals.includes(option.toLowerCase())){
     message.channel.send("$bals");
     }
-if(withdraw.includes(option.toLowerCase())){
-    message.channel.send(`$tip <@${message.author.id}> ${option2} ${currency}`);
+    // [WITHDRAWAL COMMAND]
+    if(withdraw.includes(option.toLowerCase())){
+    // [VARIABLES]
+    const arg = args.slice(1).join(" ");
+    message.channel.send(`$tip <@${message.author.id}> ${arg}`);
 }
+  // [STATISTIC COMMANDS]
   if(stats.includes(option.toLowerCase())){
+    // [DISCORD EMBED]
     const embed = new Discord.MessageEmbed()
     .setTitle(`Faucet Statistic`)
    .addFields(
-     {name: `Withdrawed Doge:` , value: `${process.env.doge}${stats_doge}` , inline: false},
-     {name: `Withdrawed Stoink:` , value: `${process.env.sto}${stats_sto}` , inline: false},
-     {name: `Withdrawed Kanda:` , value: `${process.env.kanda}${stats_kanda}` , inline: false},
-      {name: `Withdrawed BYND:` , value: `${process.env.bynd}${stats_bynd}` , inline: false},
-      {name: `Withdrawed BTC (satoshi):` , value: `${process.env.btc}${stats_btc}` , inline: false},
-      {name: `Withdrawed ETH (Gwei):` , value: `${process.env.eth}${stats_eth} gwei`},
-    {name: `Withdrawed Allsafe:` , value: `${process.env.safe}${stats_safe}`},
-    {name: `Withdrawed Goat Cash:` , value: `${process.env.goat}${stats_goat}`},
-    {name: `Withdrawed Bittorent:` ,value: `${process.env.btt}${stats.btt}`},
+    {name: `💵 USD Earned` , value: `${process.env.usd}${stats_usd}`},
 
      {name: `Faucet Claimed:` , value: `${claim_stats}` , inline: true}
      )
      .setTimestamp()
      .setColor("GREEN");
-     
+    // [SENDING FUNCTION]
     message.channel.send(embed);
   }
-  
+  // [ANNOUNCEMENT COMMAND]
   if(ann.includes(option.toLowerCase())){
+    // [VARIABLES]
     const arg = args.slice(1).join(" ");
     message.guild.channels.cache.get('786285618899451904').send(`${arg}`);
   }
+  // [RESET COMMAND]
   if(option == 'reset'){
+    // [VARIABLES]
     const currency = args[1];
     const user = message.mentions.users.first();
     if(!user){
       message.reply("Mention a user you want to reset");
     }
-    else if(!currency){
-      message.reply("What currency you want to reset?");
-    }
-    if(!database.includes(currency.toLowerCase())){
-      message.reply("Invalid Currency Database");
-    }
-    if(database.includes(currency.toLowerCase())){
-    db.delete(`${currency}.${user.id}`);
-    message.channel.send(`${user.tag}'s ${currency} balance is reseted`);
-    }
-  }
-  if(option == 'check'){
     
+    db.delete(`usd.${user.id}`);
+    message.channel.send(`${user.tag}'s USD balance is reseted`);
+  }
+  // [CHECK COMMAND]
+  if(option == 'check'){
+    // [VARIABLES]
     const user = message.mentions.users.first();
-    const c_doge = db.fetch(`doge.${user.id}`) || 0;
-    const c_bynd = db.fetch(`bynd.${user.id}`) || 0;
-    const c_kanda = db.fetch(`kanda.${user.id}`) || 0;
-    const c_sto = db.fetch(`sto.${user.id}`) || 0;
-    const c_btc = db.fetch(`btc.${user.id}`) || 0;
-    const c_eth = db.fetch(`eth.${user.id}`) || 0;
-    const c_safe = db.fetch(`safe.${user.id}`) || 0;
-    const c_goat = db.fetch(`goat.${user.id}`) || 0;
-    const c_btt = db.fetch(`btt.${user.id}`) || 0;
+    const c_usd = db.fetch(`usd.${user.id}`) || 0;
+    // [DISCORD EMBED]
     const embed_Bal = new Discord.MessageEmbed()
     .setTitle(`${user.tag}'s Balance`)
     .addFields(
-      {name: "Doge:", value: `<:doge:786536788768194560>  ${c_doge}`
-      },
-      {name: "Stoink:", value: `<a:sto:786546176966918144> ${c_sto}`
-      },
-      {name: "Telokanda:", value: `<a:kanda:786546116317282355> ${c_kanda}`
-      },
-      {name: "Beyondcoin:", value: `${process.env.bynd}${c_bynd}`},
-      {name: "Bitcoin:" , value: `${process.env.btc}${c_btc} satoshi`},
-      {name: "Ethereum:" , value: `${process.env.eth}${c_eth} gwei`},
-      {name: "Allsafe:" , value: `${process.env.safe}${c_safe}`},
-      {name: "Goat Cash:" , value: `${process.env.goat}${c_goat}`},
-      {name: "Bittorent:" , value: `${process.env.btt}${c_btt}`}
+      {name: "USD:", value: `${process.env.usd} ${c_usd}`
+      }
       )
     .setTimestamp()
     .setColor('BLUE');
-if(!user){
+    if(!user){
       message.reply("Tag the user you want to check his/her balance");
     }
    else message.channel.send(embed_Bal);
     
   }
+  // [SET FAUCET REWARD]
   if(option == "set"){
-    const total = db.fetch(`faucet_${option2}`);
-    const currencies = args[1].toLowerCase();
-    const amount = args[2];
-    const currencys = ["btc"];
-    if(!option2){
-      message.reply("Please provide what currency you want to set");
+    // [VARIABLES]
+    const total = db.fetch(`faucet_usd`);
+    const amount = args[1].toLowerCase();
+    const whitelisted=['390755692459589633' , '743409861131239484'];
+     if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)");
+    if(whitelisted.includes(message.author.id)){
+    if(isNaN(amount)){
+     message.reply("**Please provide a proper amount!**");
     }
-     if(!amount){
-      message.reply("Please provide the number to set the faucet reward");
+    if(!amount){
+      message.reply("Specify the amount for faucet reward");
     }
-    if(!database.includes(option2.toLowerCase())){
-      message.reply("You submit an invalid currency database");
+    
+    db.set(`faucet_usd` , `${amount}`);
+     message.reply(`**USD** reward has been set to **${amount}**`);
     }
-   if(database.includes(option2.toLowerCase())){
-     db.set(`faucet_${option2.toLowerCase()}` , `${amount}`);
-     message.reply(`**${option2.toUpperCase()}** currency reward has been set to **${amount}**`);
-  }
   }
   if(option == "ads"){
     const arg = args.slice(1).join(" ");
+    const whitelisted=['390755692459589633' , '743409861131239484'];
+     if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)");
+    if (whitelisted.includes(message.author.id)){
     db.set(`ads_text` , `${arg}`);
     message.reply(`Advertisement Text has been set to: ${arg}`);
+    }
   }
   if(option == "timer"){
     const user = message.mentions.users.first();
@@ -158,7 +134,7 @@ if(!user){
     message.reply(`${user.tag} timer has been reseted`);
   }
   if(option == "faucet"){
-    const btc = db.fetch(`faucet_btc`);
+    /*const btc = db.fetch(`faucet_btc`);
     const doge = db.fetch(`faucet_doge`);
     const eth = db.fetch(`faucet_eth`);
     const sto = db.fetch(`faucet_sto`);
@@ -167,8 +143,10 @@ if(!user){
     const goat = db.fetch(`faucet_goat`);
     const bynd = db.fetch(`faucet_bynd`);
     const btt = db.fetch(`faucet_btt`);
+    */
+    const usd = db.fetch("faucet_usd");
     const status = db.fetch(`status`);
-    message.channel.send(`Faucet Status: **${status.toUpperCase()}**\nCurrent Claim Rewards:\`\`\`\n•Bitcoin: ${btc} satoshi\n•Dogecoin: ${doge}\n•Stoink: ${sto}\n•Kanda: ${kanda}\n•Beyondcoin: ${bynd}\n•Allsafe: ${safe}\n•Goat Cash: ${goat}\nEthereum: ${eth} gwei\nBittorent: ${btt}\n\`\`\``);
+    message.channel.send(`Faucet Status: **${status.toUpperCase()}**\nCurrent Claim Rewards:\`\`\`\n•USD: ${usd}\n\`\`\``);
   }
   if(option == "say"){
     const arg = args.slice(1).join(" ");
@@ -181,8 +159,9 @@ if(!user){
     }
     if(switching.includes(option2.toLowerCase())){
       message.channel.send(`The faucet is now set to \`${option2}\``)
-      db.set("status" , option2);
+      db.set("status" , `${option2.toLowerCase()}`);
     }
+    
   }
       }
 };

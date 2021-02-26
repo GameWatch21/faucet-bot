@@ -12,7 +12,7 @@ module.exports = {
   if(message.channel.type == "dm"){
     message.reply("You cant withdraw currency on DM")
   }
-    const c_doge = db.fetch(`doge.${message.author.id}`) || 0;
+   /* const c_doge = db.fetch(`doge.${message.author.id}`) || 0;
     const c_sto = db.fetch(`sto.${message.author.id}`) || 0;
     const c_kanda = db.fetch(`kanda.${message.author.id}`) || 0;
     const c_bynd = db.fetch(`bynd.${message.author.id}`) || 0;
@@ -21,6 +21,9 @@ module.exports = {
     const c_goat = db.fetch(`goat.${message.author.id}`) || 0;
     const c_safe = db.fetch(`safe.${message.author.id}`) || 0;
     const c_btt = db.fetch(`btt.${message.author.id}`) || 0;
+    */
+    const c_usd = db.fetch(`usd.${message.author.id}`) || 0;
+    /*
     const btc = ["btc" , "sats" , "satoshi"];
     const bynd = ["bynd" , "beyond" , "beyondcoin"];
     const sto = ["sto" , "stoink"];
@@ -30,6 +33,8 @@ module.exports = {
     const doge = ["doge" , "dogecoin" , "d"];
     const eth = ["eth" , "ethereum" , "gwei"];
     const btt = ["btt" , "bittorent" , "bittorents"];
+    */
+    const currencies = ["btc" , "satoshi" , "bitcoin" , "bitcoins" , "doge" , "dogecoin" , "beyondcoin" , "bynd" , "eth" , "gwei" , "ethereum" , "btt" , "bittorent" , "safe" , "allsafe" , "stoink" , "sto" , "kanda" , "d" , "sats", "goat" , "goatcash"]
     
     const amount = args[0];
     const currency = args[1];
@@ -51,7 +56,65 @@ module.exports = {
  else if(!currency){
       message.reply("Give what currency you want to withdraw");
      }
-  else if(btt.includes(currency.toLowerCase())){
+
+     if(!currencies.includes(currency.toLowerCase())){
+      message.channel.send(`Invalid Currency!\n\nWe only support these currency:\n\`\`\`\nBTC\nDOGE\nKANDA\nSTO\nETH\nSAFE\nGOAT\nBTT\nBYND\nGOAT\n\`\`\``)
+     }
+     else if(currencies.includes(currency.toLowerCase())){
+     const all = db.fetch(`usd.${message.author.id}`) || 0;
+       if(amount.toLowerCase() == "all"){
+         if(c_usd == "0"){
+           message.reply("You dont have enough balance");
+         }
+   else if(c_usd >= all){
+      const log2 = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag}'s withdrawal`)
+     .addFields(
+       {name: `Currency:` , value: `${currency.toUpperCase()}` },
+       {name: `Amount:`, value: `$${all} ${currency.toUpperCase()}` , inline: true},
+       {name: `Message Link` , value: `[Hover Link](${message.url})` , inline: true}
+       )
+       .setTimestamp()
+       .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
+       .setColor("BLUE");
+       db.subtract(`usd.${message.author.id}`, all);
+         db.add(`w_usd.${message.author.id}` , all);
+         db.add(`w_usd.stats` , all);
+     message.channel.send(`$tip <@${message.author.id}> $${all} ${currency}`);
+     message.guild.channels.cache.get("788612288293634069").send(log2);
+         
+       
+       
+    }
+  }
+    if(c_usd >= amount){
+const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag}'s withdrawal`)
+     .addFields(
+       {name: `Currency:` , value: `${currency.toUpperCase()}` },
+       {name: `Amount:`, value: `$${amount} ${currency.toUpperCase()}` , inline: true},
+       {name: `Message Link` , value: `[Hover Link](${message.url})` , inline: true}
+       )
+       .setTimestamp()
+       .setThumbnail(`${message.author.displayAvatarURL({ format: "png", dynamic: true })}`)
+       .setColor("BLUE");
+         db.subtract(`usd.${message.author.id}`, amount);
+         db.add(`w_usd.${message.author.id}` , amount)
+         db.add(`w_usd.stats` , amount)
+message.channel.send(`$tip <@${message.author.id}> $${amount} ${currency}`)
+
+message.guild.channels.cache.get("788612288293634069").send(log);
+     
+     
+         
+       }
+       else if(c_usd < amount){
+      message.reply(process.env.ERROR);
+      }
+     }
+    }
+     
+ /* else if(btt.includes(currency.toLowerCase())){
        const all = db.fetch(`btt.${message.author.id}`) || 0;
        if(amount.toLowerCase() == "all"){
          if(c_btt == "0"){
@@ -508,6 +571,6 @@ const log = new Discord.MessageEmbed()
        }
     
       }
-   }
+   } */
     }
   }

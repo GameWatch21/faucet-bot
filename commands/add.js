@@ -11,21 +11,23 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
       );
     }
     // [THE SIDE FUNCTION]
+    // [VARIABLES]
     let amount = args[1];
     let currency = args[2];
     let taggedUser = message.mentions.users.first();
-    const able = ["btc" , "eth" , "bynd" , "sto" , "btt" , "kanda" , "safe", "goat" , "doge"]
+    const whitelisted=['390755692459589633' , '743409861131239484'];
+    
+   // [IF AND CHECKING STATEMENT]
+   if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)")
     
     if (isNaN(amount))
       return message.reply("**Please provide a proper number!**");
-     if(!currency) return message.reply("**You forgot to add the currency**")
-
 
   // [THE MAIN FUNCTION]
-    if(able.includes(currency.toLowerCase())){
-      message.channel.send(`Added ${amount} ${currency.toUpperCase()} to ${taggedUser.username}'s account.`);
-      db.add(`${currency}.${taggedUser.id}` , amount);
-    }
+      if(whitelisted.include(message.author.id)){
+      message.channel.send(`Added ${amount} USD to ${taggedUser.username}'s account.`);
+      db.add(`usd.${taggedUser.id}` , amount);
+      }
   }
   
 }

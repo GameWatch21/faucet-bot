@@ -15,21 +15,15 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
     let amount = args[1];
     let currency = args[2];
     let taggedUser = message.mentions.users.first();
-    const able = ["btc" , "doge" , "bynd" , "btt" , "sto" , "kanda" , "eth" , "safe" , "goat"];
+    const whitelisted=['390755692459589633' , '743409861131239484'];
+     if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)")
     
     if (isNaN(amount))
       return message.reply("**Please provide a proper number!**");
-     if(!currency) return message.reply("**You forgot to add the currency**")
-  /*  if (!amount)
-      return message.reply(
-        "**You need to specify a number for this command!**"
-      ); */
-    if(!able.includes(currency.toLowerCase())){
-      message.reply("Invalid Currency Database Code");
-    }
-    if(able.includes(currency.toLowerCase())){
-      message.channel.send(`${amount} ${currency.toUpperCase()} has been taken from ${taggedUser.username}'s Account`);
-      db.subtract(`${currency}.${taggedUser.id}` , amount);
+    
+    if(whitelisted.includes(message.author.id)){
+      message.channel.send(`${amount} USD has been taken from ${taggedUser.username}'s Account`);
+      db.subtract(`usd.${taggedUser.id}` , amount);
     }
 }
   
