@@ -12,28 +12,7 @@ module.exports = {
   if(message.channel.type == "dm"){
     message.reply("You cant withdraw currency on DM")
   }
-   /* const c_doge = db.fetch(`doge.${message.author.id}`) || 0;
-    const c_sto = db.fetch(`sto.${message.author.id}`) || 0;
-    const c_kanda = db.fetch(`kanda.${message.author.id}`) || 0;
-    const c_bynd = db.fetch(`bynd.${message.author.id}`) || 0;
-    const c_btc = db.fetch(`btc.${message.author.id}`) || 0;
-    const c_eth = db.fetch(`eth.${message.author.id}`) || 0;
-    const c_goat = db.fetch(`goat.${message.author.id}`) || 0;
-    const c_safe = db.fetch(`safe.${message.author.id}`) || 0;
-    const c_btt = db.fetch(`btt.${message.author.id}`) || 0;
-    */
     const c_usd = db.fetch(`usd.${message.author.id}`) || 0;
-    /*
-    const btc = ["btc" , "sats" , "satoshi"];
-    const bynd = ["bynd" , "beyond" , "beyondcoin"];
-    const sto = ["sto" , "stoink"];
-    const kanda = ["kanda"];
-    const safe = ["safe" , "allsafe"];
-    const goat = ["goat" , "goat cash"];
-    const doge = ["doge" , "dogecoin" , "d"];
-    const eth = ["eth" , "ethereum" , "gwei"];
-    const btt = ["btt" , "bittorent" , "bittorents"];
-    */
     const currencies = ["btc" , "satoshi" , "bitcoin" , "bitcoins" , "doge" , "dogecoin" , "beyondcoin" , "bynd" , "eth" , "gwei" , "ethereum" , "btt" , "bittorent" , "safe" , "allsafe" , "stoink" , "sto" , "kanda" , "d" , "sats", "goat" , "goatcash"]
     
     const amount = args[0];

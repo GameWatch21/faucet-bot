@@ -6,32 +6,8 @@ module.exports = {
   description: "Warn bad users",
   guildOnly: true,
   execute(message, args){
-  /*  function getUser(mention) {
-    if (!mention) return;
-    if (mention.startsWith("<@") && mention.endsWith(">")) {
-      var mention = mention.slice(2, -1);
-      if (mention.startsWith("!")) {
-        mention = mention.slice(1);
-      }
-      return message.guild.member(message.guild.members.get(mention));
-    }
-} */
-    const user = message.mentions.users.first();
-    /*getUser(args[0]) || message.member; */
-    
-  /*  const embedW = new Discord.RichEmbed()
-    .setTitle(`⛔Warning Message⛔`)
-    .setColor("RED")
-.setDescription(`${user} has been warned`)
-    .addField(`Reason:`, `${reason}`)
-    .addField(`Warned by:`, `<@${message.author.id}>`)
-    .addField(`Warned for:`, `${warnval} time(s)`)
-    .setTimestamp()
-    .setFooter(`Please dont break the rule again ${user} 😃`);
-    
-              
-    
-  var member = message.mentions.members.first(); */
+    const user = message.mention.users.first();
+
   if(!user){
     message.channel.send("**Mention a user you want to warn**")
   }

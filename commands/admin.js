@@ -31,6 +31,10 @@ module.exports = {
       const switching = ["on" , "off"];
     // [MAIN FUNCTION]
     
+    // [HELP COMMAND]
+    if(option.toLowerCase() == "help"){
+      message.channel.send("Check out `f!help admin`")
+    }
     // [CHECKING BOT BALANCE]
     if(bal.includes(option.toLowerCase())){
       if(!option2){
@@ -39,13 +43,17 @@ module.exports = {
     else  message.channel.send(`$bal ${option2}`);
     }
     if(bals.includes(option.toLowerCase())){
-    message.channel.send("$bals");
+    message.channel.send("$bals top");
     }
     // [WITHDRAWAL COMMAND]
     if(withdraw.includes(option.toLowerCase())){
     // [VARIABLES]
     const arg = args.slice(1).join(" ");
+    const whitelisted=['390755692459589633' , '743409861131239484'];
+     if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)");
+    if(whitelisted.includes(message.author.id)){
     message.channel.send(`$tip <@${message.author.id}> ${arg}`);
+    }
 }
   // [STATISTIC COMMANDS]
   if(stats.includes(option.toLowerCase())){
@@ -66,19 +74,27 @@ module.exports = {
   if(ann.includes(option.toLowerCase())){
     // [VARIABLES]
     const arg = args.slice(1).join(" ");
+    const whitelisted=['390755692459589633' , '743409861131239484'];
+     if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)");
+    if(whitelisted.includes(message.author.id)){
     message.guild.channels.cache.get('786285618899451904').send(`${arg}`);
+    }
   }
   // [RESET COMMAND]
   if(option == 'reset'){
     // [VARIABLES]
     const currency = args[1];
     const user = message.mentions.users.first();
+    const whitelisted=['390755692459589633' , '743409861131239484'];
+     if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)");
+    if(whitelisted.includes(message.author.id)){
     if(!user){
       message.reply("Mention a user you want to reset");
     }
     
     db.delete(`usd.${user.id}`);
     message.channel.send(`${user.tag}'s USD balance is reseted`);
+    }
   }
   // [CHECK COMMAND]
   if(option == 'check'){
@@ -130,36 +146,45 @@ module.exports = {
   }
   if(option == "timer"){
     const user = message.mentions.users.first();
+    const whitelisted=['390755692459589633' , '743409861131239484'];
+     if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)");
+    if (whitelisted.includes(message.author.id)){
     db.delete(`timer.${user.id}`);
     message.reply(`${user.tag} timer has been reseted`);
+    }
   }
+  // [CHECK FAUCET STATUS COMMAND]
   if(option == "faucet"){
-    /*const btc = db.fetch(`faucet_btc`);
-    const doge = db.fetch(`faucet_doge`);
-    const eth = db.fetch(`faucet_eth`);
-    const sto = db.fetch(`faucet_sto`);
-    const kanda = db.fetch(`faucet_kanda`);
-    const safe = db.fetch(`faucet_safe`);
-    const goat = db.fetch(`faucet_goat`);
-    const bynd = db.fetch(`faucet_bynd`);
-    const btt = db.fetch(`faucet_btt`);
-    */
+    // [VARIABLES]
     const usd = db.fetch("faucet_usd");
     const status = db.fetch(`status`);
     message.channel.send(`Faucet Status: **${status.toUpperCase()}**\nCurrent Claim Rewards:\`\`\`\n•USD: ${usd}\n\`\`\``);
   }
+  // [SAY COMMAND]
   if(option == "say"){
+    // [VARIABLES]
     const arg = args.slice(1).join(" ");
-    message.channel.send(arg)
+    const whitelisted=['390755692459589633' , '743409861131239484'];
+     if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)");
+    if(!arg){
+      message.reply("What you want me to say?")
+    }
+    if (whitelisted.includes(message.author.id)){
+    message.channel.send(arg);
+    }
   }
   if(option == "status"){
     const status = args[1];
+    const whitelisted=['390755692459589633' , '743409861131239484'];
+     if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)");
+    if (whitelisted.includes(message.author.id)){
     if(!switching.includes(option2.toLowerCase())){
       message.reply("You can switch the faucet to on/off");
     }
     if(switching.includes(option2.toLowerCase())){
       message.channel.send(`The faucet is now set to \`${option2}\``)
       db.set("status" , `${option2.toLowerCase()}`);
+    }
     }
     
   }
