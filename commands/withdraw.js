@@ -13,7 +13,7 @@ module.exports = {
     message.reply("You cant withdraw currency on DM")
   }
     const c_usd = db.fetch(`usd.${message.author.id}`) || 0;
-    const currencies = ["btc" , "satoshi" , "bitcoin" , "bitcoins" , "doge" , "dogecoin" , "beyondcoin" , "bynd" , "eth" , "gwei" , "ethereum" , "btt" , "bittorent" , "safe" , "allsafe" , "stoink" , "sto" , "kanda" , "d" , "sats", "goat" , "goatcash"]
+    const currencies = ["btc" , "satoshi" , "bitcoin" , "bitcoins" , "doge" , "dogecoin" , "beyondcoin" , "bynd" , "eth" , "gwei" , "ethereum" , "btt" , "bittorent" , "safe" , "allsafe" , "kanda" , "d" , "sats", "goat" , "goatcash" , "stoink" , "sto"]
     
     const amount = args[0];
     const currency = args[1];
@@ -41,11 +41,13 @@ module.exports = {
      }
      else if(currencies.includes(currency.toLowerCase())){
      const all = db.fetch(`usd.${message.author.id}`) || 0;
+     
        if(amount.toLowerCase() == "all"){
          if(c_usd == "0"){
            message.reply("You dont have enough balance");
          }
    else if(c_usd >= all){
+     
       const log2 = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag}'s withdrawal`)
      .addFields(
@@ -63,11 +65,12 @@ module.exports = {
      message.guild.channels.cache.get("788612288293634069").send(log2);
          
        
-       
+    
     }
   }
     if(c_usd >= amount){
-const log = new Discord.MessageEmbed()
+      
+   const log = new Discord.MessageEmbed()
      .setTitle(`${message.author.tag}'s withdrawal`)
      .addFields(
        {name: `Currency:` , value: `${currency.toUpperCase()}` },
@@ -83,9 +86,7 @@ const log = new Discord.MessageEmbed()
 message.channel.send(`$tip <@${message.author.id}> $${amount} ${currency}`)
 
 message.guild.channels.cache.get("788612288293634069").send(log);
-     
-     
-         
+ 
        }
        else if(c_usd < amount){
       message.reply(process.env.ERROR);

@@ -29,6 +29,7 @@ module.exports = {
       const withdraw = ["with" , "withdraw"];
       const database = ["usd"];
       const switching = ["on" , "off"];
+      const whitelisted=['390755692459589633' , '743409861131239484' , '476674050559836160'];
     // [MAIN FUNCTION]
     
     // [HELP COMMAND]
@@ -49,7 +50,6 @@ module.exports = {
     if(withdraw.includes(option.toLowerCase())){
     // [VARIABLES]
     const arg = args.slice(1).join(" ");
-    const whitelisted=['390755692459589633' , '743409861131239484'];
      if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)");
     if(whitelisted.includes(message.author.id)){
     message.channel.send(`$tip <@${message.author.id}> ${arg}`);
@@ -74,7 +74,6 @@ module.exports = {
   if(ann.includes(option.toLowerCase())){
     // [VARIABLES]
     const arg = args.slice(1).join(" ");
-    const whitelisted=['390755692459589633' , '743409861131239484'];
      if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)");
     if(whitelisted.includes(message.author.id)){
     message.guild.channels.cache.get('786285618899451904').send(`${arg}`);
@@ -85,7 +84,7 @@ module.exports = {
     // [VARIABLES]
     const currency = args[1];
     const user = message.mentions.users.first();
-    const whitelisted=['390755692459589633' , '743409861131239484'];
+    
      if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)");
     if(whitelisted.includes(message.author.id)){
     if(!user){
@@ -121,7 +120,7 @@ module.exports = {
     // [VARIABLES]
     const total = db.fetch(`faucet_usd`);
     const amount = args[1].toLowerCase();
-    const whitelisted=['390755692459589633' , '743409861131239484'];
+    
      if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)");
     if(whitelisted.includes(message.author.id)){
     if(isNaN(amount)){
@@ -137,7 +136,7 @@ module.exports = {
   }
   if(option == "ads"){
     const arg = args.slice(1).join(" ");
-    const whitelisted=['390755692459589633' , '743409861131239484'];
+    
      if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)");
     if (whitelisted.includes(message.author.id)){
     db.set(`ads_text` , `${arg}`);
@@ -146,7 +145,7 @@ module.exports = {
   }
   if(option == "timer"){
     const user = message.mentions.users.first();
-    const whitelisted=['390755692459589633' , '743409861131239484'];
+    
      if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)");
     if (whitelisted.includes(message.author.id)){
     db.delete(`timer.${user.id}`);
@@ -164,7 +163,7 @@ module.exports = {
   if(option == "say"){
     // [VARIABLES]
     const arg = args.slice(1).join(" ");
-    const whitelisted=['390755692459589633' , '743409861131239484'];
+    
      if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)");
     if(!arg){
       message.reply("What you want me to say?")
@@ -175,7 +174,7 @@ module.exports = {
   }
   if(option == "status"){
     const status = args[1];
-    const whitelisted=['390755692459589633' , '743409861131239484'];
+    
      if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)");
     if (whitelisted.includes(message.author.id)){
     if(!switching.includes(option2.toLowerCase())){

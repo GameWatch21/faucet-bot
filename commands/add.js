@@ -24,7 +24,7 @@ if (!message.member.hasPermission("ADMINISTRATOR")) {
       return message.reply("**Please provide a proper number!**");
 
   // [THE MAIN FUNCTION]
-      if(whitelisted.include(message.author.id)){
+      if(whitelisted.includes(message.author.id)){
       message.channel.send(`Added ${amount} USD to ${taggedUser.username}'s account.`);
       db.add(`usd.${taggedUser.id}` , amount);
       }

@@ -20,7 +20,11 @@ module.exports = {
     .setTimestamp()
     .setFooter(`We didnt responsible for any loss funds`);
     message.channel.send("Your buy order has been sent, please check at <#816320342867312640>")
+    
+    
     message.guild.channels.cache.get('816320342867312640').send(embedW);
+     
+    
     }
     if(option.toLowerCase() == "sell"){
    const embedW = new Discord.MessageEmbed()

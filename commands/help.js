@@ -14,15 +14,15 @@ module.exports = {
 				{
 					name: 'f!ping',
 					value: 'Checking if the bot is online or offline',
-					inline: true
+				
 				},
 
 				{
 					name: 'f!faucet',
-					value: 'Claim Fraction of Currency',
-					inline: true
+					value: 'Claim free USD',
+				
 				},
-				{ name: 'f!balance', value: 'Check your crypto balance', inline: true },
+				{ name: 'f!balance', value: 'Check your crypto balance'},
 				{
 					name: 'f!withdraw',
 					value: 'Withdraw your earned crypto\nWithdrawal Option:\n•tip.cc',
@@ -67,7 +67,9 @@ module.exports = {
      {
        name: `f!admin ads`, value: 'Set the Advertisement space\n**Usage:** `f!admin ads [message]`\n**Permission:** `Admin`\n**Aliases:** none'
      },
-     
+     {
+      name: `f!prune`, value: 'Add someone balance\n**Usage:** `f!prune [amount]`\n**Permission:** `Admin & Moderator`\n**Aliases:** `purge`'
+      },
      {
        name: `f!admin announcement`, value: 'Send an Announcement message through the bot\n**Usage:** `f!admin announcement [message]`\n**Permission:** `Admin`\n**Aliases:** `ann, announce, announcement`'
      }
