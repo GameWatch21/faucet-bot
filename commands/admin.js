@@ -24,6 +24,7 @@ module.exports = {
       const stats_usd = db.fetch(`w_usd.stats`) || 0;
       const stats = ["stats" , "statistic" , "stat" , "statistics"];
       const ann = ["ann" , "announcement" , "announce" , "announces" , "announcements"];
+      const delet = ["delete" , "delet" , "del" , "take"];
       const bal = ["bal" , "balance"];
       const bals = ["bals" , "balances"];
       const withdraw = ["with" , "withdraw"];
@@ -160,7 +161,7 @@ module.exports = {
     message.channel.send(`Faucet Status: **${status.toUpperCase()}**\nCurrent Claim Rewards:\`\`\`\n•USD: ${usd}\n\`\`\``);
   }
   // [SAY COMMAND]
-  if(option == "say"){
+  if(option.toLowerCase() == "say"){
     // [VARIABLES]
     const arg = args.slice(1).join(" ");
     
@@ -172,7 +173,7 @@ module.exports = {
     message.channel.send(arg);
     }
   }
-  if(option == "status"){
+  if(option.toLowerCase() == "status"){
     const status = args[1];
     
      if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)");
@@ -186,6 +187,39 @@ module.exports = {
     }
     }
     
+  }
+  if(option.toLowerCase() == "add"){
+    // [THE SIDE FUNCTION]
+    // [VARIABLES]
+    let amount = args[2];
+    let taggedUser = message.mentions.users.first();
+    
+   // [IF AND CHECKING STATEMENT]
+   if (!whitelisted.includes(message.author.id)) return message.reply("Only some admin who can use this Command :)")
+    
+    if (isNaN(amount))
+      return message.reply("**Please provide a proper number!**");
+
+  // [THE MAIN FUNCTION]
+      if(whitelisted.includes(message.author.id)){
+      message.channel.send(`Added ${amount} USD to ${taggedUser.username}'s account.`);
+      db.add(`usd.${taggedUser.id}` , amount);
+      
+  }
+  }
+  if(delet.includes(option.toLowerCase())){
+    let amount = args[2];
+    let taggedUser = message.mentions.users.first();
+    
+     if (!whitelisted.includes(message.author.id)) return message.reply("Only GameWatch21 and Joel who can use this Command :)")
+    
+    if (isNaN(amount))
+      return message.reply("**Please provide a proper number!**");
+    
+    if(whitelisted.includes(message.author.id)){
+      message.channel.send(`${amount} USD has been taken from ${taggedUser.username}'s Account`);
+      db.subtract(`usd.${taggedUser.id}` , amount);
+    }
   }
       }
 };
