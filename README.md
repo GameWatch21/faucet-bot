@@ -11,3 +11,12 @@ Published from repl.it, also hosted on repl.it, origin code written at glitch.co
 
 ## FORK
 Feel free to fork my project, you can modified all of the code and take my credits :v, but i will appreciate if you give my credits somewhere else
+
+### PACKAGE
+This is the Package that use to make the bot working perfectly
+- Discord.js
+- Quick.DB
+- dotenv
+- Express
+- http
+- fs

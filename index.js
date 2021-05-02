@@ -1,6 +1,4 @@
-
-/*const keep_alive = require('./keep_alive.js'); */
-
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = 8080;
@@ -57,15 +55,6 @@ client.once("ready", () => {
     };
 });
 client.on("message", message => {
-
- /*if (message.mentions(client.user)) {
-    const embed = new Discord.MessageEmbed()
-    .setTitle(`Hello ${message.author.username} 👋`)
-    .setDescription("Hello, I'm a Faucet bot, a bot dedicated to serving you and giving you a rewards!\nMy prefix is `f!`. You can use `f!help` to get started with the bot. \nStart claiming crpyto with `f!faucet`\nAnd last, have Fun!")
-    .setColor("RANDOM")
-    .setFooter("A Welcome Message");
-    message.channel.send(embed);
-  } */
   
   if (!message.content.toLowerCase().startsWith(prefix) || message.author.bot) return;
 
@@ -136,4 +125,4 @@ client.on("message", message => {
   }
 });
 
-client.login("Nzg2NTI0MjgwMzc2MjYyNjg2.X9Hp0Q.BhjBbFdGgONdTPo2F-jCcfpC4ys")
+client.login(process.env.TOKEN)

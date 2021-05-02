@@ -13,23 +13,17 @@ module.exports = {
     message.reply("You cant withdraw currency on DM")
   }
     const c_usd = db.fetch(`usd.${message.author.id}`) || 0;
-    const currencies = ["btc" , "satoshi" , "bitcoin" , "bitcoins" , "doge" , "dogecoin" , "beyondcoin" , "bynd" , "eth" , "gwei" , "ethereum" , "btt" , "bittorent" , "safe" , "allsafe" , "kanda" , "d" , "sats", "goat" , "goatcash" , "lbry" , "lbc" , "whale" ,"monero" , "xmr"];
+    const currencies = ["btc" , "satoshi" , "bitcoin" , "bitcoins" , "doge" , "dogecoin" , "beyondcoin" , "bynd" , "eth" , "gwei" , "ethereum" , "btt" , "bittorent" , "safe" , "allsafe" , "kanda" , "d" , "sats", "goat" , "goatcash" , "lbry" , "lbc" , "whale" ,"xdai"];
     
     const amount = args[0];
     const currency = args[1];
     const blockedUsers = [ '770361196448448512', '770362768783573002', '772139037569187870', '770359881688940544'];
-    /* 451195250950799370
-    770359427680305153
-    770361876415643699
-    770371044842012673
-    770358526081630260
-    */
      if (blockedUsers.includes(message.author.id)) return message.reply("Sorry you have been blocked by the bot because of Abusive/Alt/Cheat to our system, please contact the bot dev to unblock your id and give reason why you need to be unblocked");
       
       
    if(message.channel.type == "text"){
     if(!amount){ 
-      message.channel.send("Use `f!withdraw [AMOUNT] [CURRENCY]`\nAvailable Currencies:\n•DOGE\n•STO\n•KANDA\n•BYND\n•BTC\n•SAFE\n•GOAT");
+      message.channel.send("Use `f!withdraw [AMOUNT] [CURRENCY]`\nAvailable Currencies:\n•DOGE\n•XDAI\n•KANDA\n•BYND\n•BTC\n•SAFE\n•GOAT\n•WHALE\n•LBC");
       }
 
  else if(!currency){
@@ -37,7 +31,7 @@ module.exports = {
      }
 
      if(!currencies.includes(currency.toLowerCase())){
-      message.channel.send(`Invalid Currency!\n\nWe only support these currency:\n\`\`\`\nBTC\nDOGE\nKANDA\nSTO\nETH\nSAFE\nGOAT\nBTT\nBYND\nGOAT\n\`\`\``)
+      message.channel.send(`Invalid Currency!\n\nWe only support these currency:\n\`\`\`\nBTC\nDOGE\nKANDA\nXDAI\nETH\nSAFE\nGOAT\nBTT\nBYND\nGOAT\nLBC\nWHALE\n\`\`\``)
      }
      else if(currencies.includes(currency.toLowerCase())){
      const all = db.fetch(`usd.${message.author.id}`) || 0;

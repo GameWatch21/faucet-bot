@@ -9,7 +9,7 @@ module.exports = {
   aliases: ["claim"],
   execute(message, args){
    if(message.channel.type == "dm"){
-      message.reply("You cant claim Faucet on DM")
+      message.reply("You cant claim Faucet on DM");
     }
   
     const reward_usd = db.fetch(`faucet_usd`) || 0;
@@ -34,8 +34,24 @@ return items[Math.floor(Math.random()*items.length)];
 }
 
 var items = [":money_mouth:" , ":money_with_wings:" , ":moneybag:"];
-
-if(status == "off"){
+ 
+ if (message.member.hasPermission("ADMINISTRATOR")){
+ const claims = db.fetch(`claims.${message.author.id}`);
+    const total = Math.floor(claims + 1)
+     const log = new Discord.MessageEmbed()
+     .setTitle(`${message.author.tag} claiming USD ${emoji_usd}`)
+     .setDescription(`This user already claim ${total} times`)
+     .setTimestamp()
+     .setColor("GREEN");
+  db.add(`usd.${message.author.id}`, reward_usd);
+  db.add(`claims.${message.author.id}` , 1);
+  db.add(`claims.global` , 1);
+db.set(`timer.${message.author.id}`, Date.now());
+     message.channel.send(`${random_item(items)} <@${message.author.id}> earned **${emoji_usd}${reward_usd}** \n\n\`\`\`[ADVERTISEMENT SPACE]\`\`\`\n${ads_space}\nContact "**GameWatch21#9476**" for Renting`);
+       message.guild.channels.cache.get('789085255378272266').send(log);
+       } 
+   if (!message.member.hasPermission("ADMINISTRATOR")){
+   if(status == "off"){
      message.reply(`Faucet is closed for now, Please check again later\nADVERTISEMENT\n${ads_space}\nContact "**GameWatch21#9476**" for Renting`);
    }
     else if(status == "on"){
@@ -59,6 +75,7 @@ db.set(`timer.${message.author.id}`, Date.now());
        } 
     }
     }
-  
+    }
+    
     }
   };
