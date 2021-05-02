@@ -1,3 +1,4 @@
+
 /*const keep_alive = require('./keep_alive.js'); */
 
 const express = require('express');
@@ -27,47 +28,23 @@ for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
 }
-/*
-const sequelize = new Sequelize('database', 'user', 'password', {
-	host: 'localhost',
-	dialect: 'sqlite',
-	logging: false,
-	// SQLite only
-	storage: 'database.sqlite',
-});
-*/
-/*const sequelize = new Sequelize('database', 'user', 'password', {
-	host: 'localhost',
-	dialect: 'sqlite',
-	logging: false,
-	// SQLite only
-	storage: 'database.sqlite',
-});
 
-const Tags = sequelize.define('tags', {
-	name: {
-		type: Sequelize.STRING,
-		unique: true,
-	},
-	description: Sequelize.TEXT,
-	username: Sequelize.STRING,
-	usage_count: {
-		type: Sequelize.INTEGER,
-		defaultValue: 0,
-		allowNull: false,
-	},
-}); */
+
 
 client.once("ready", () => {
+  const testing = new Discord.MessageEmbed()
+  .setTitle(`Testing`)
+  .setDescription(`Just a testing Purpose`);
+  
   client.api.applications(client.user.id).guilds('786169610507780106').commands.post({data: {
     name: 'ping',
-    description: 'ping pong!'
+    description: 'Test out our slash command!'
 }});
   client.ws.on('INTERACTION_CREATE', async interaction => {
   client.api.interactions(interaction.id, interaction.token).callback.post({data: {
   type: 4,
   data: {
-    content: 'hello world!'
+    content: testing
     }
   }
 })
@@ -78,9 +55,7 @@ client.once("ready", () => {
   client.user.setActivity(`f!help | Claim your faucet with f!faucet`), {
     type: "playing"
     };
-   /*Tags.sync(); */
-  }); 
-const blockedUsers = [ '', 'id2' ];
+});
 client.on("message", message => {
 
  /*if (message.mentions(client.user)) {
@@ -114,7 +89,6 @@ client.on("message", message => {
     console.error(error);
     message.reply("There was an error when using this command, please use `f!report [MESSAGE]` to report this error");
   }
-
   // [BASIC COMMANDS]
   if (command === "ping") {
     client.commands.get("ping").execute(message, args);
@@ -162,4 +136,4 @@ client.on("message", message => {
   }
 });
 
-client.login(process.env.TOKEN);
+client.login("Nzg2NTI0MjgwMzc2MjYyNjg2.X9Hp0Q.BhjBbFdGgONdTPo2F-jCcfpC4ys")

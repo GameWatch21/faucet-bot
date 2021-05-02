@@ -13,7 +13,7 @@ module.exports = {
     message.reply("You cant withdraw currency on DM")
   }
     const c_usd = db.fetch(`usd.${message.author.id}`) || 0;
-    const currencies = ["btc" , "satoshi" , "bitcoin" , "bitcoins" , "doge" , "dogecoin" , "beyondcoin" , "bynd" , "eth" , "gwei" , "ethereum" , "btt" , "bittorent" , "safe" , "allsafe" , "kanda" , "d" , "sats", "goat" , "goatcash" , "stoink" , "sto" , "monero" , "xmr"];
+    const currencies = ["btc" , "satoshi" , "bitcoin" , "bitcoins" , "doge" , "dogecoin" , "beyondcoin" , "bynd" , "eth" , "gwei" , "ethereum" , "btt" , "bittorent" , "safe" , "allsafe" , "kanda" , "d" , "sats", "goat" , "goatcash" , "lbry" , "lbc" , "whale" ,"monero" , "xmr"];
     
     const amount = args[0];
     const currency = args[1];

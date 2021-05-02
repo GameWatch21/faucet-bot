@@ -14,6 +14,7 @@ module.exports = {
   
     const reward_usd = db.fetch(`faucet_usd`) || 0;
     const ads_space = db.fetch(`ads_text`) || "Open Space";
+    const emoji_usd = "<:usd:807233939474350080>"
     const status = db.fetch("status") || "on";
     let timeout = 3500000;
     let daily =  db.get(`timer.${message.author.id}`);
@@ -45,7 +46,7 @@ if(status == "off"){
     const claims = db.fetch(`claims.${message.author.id}`);
     const total = Math.floor(claims + 1)
      const log = new Discord.MessageEmbed()
-     .setTitle(`${message.author.tag} claiming USD ${process.env.usd}`)
+     .setTitle(`${message.author.tag} claiming USD ${emoji_usd}`)
      .setDescription(`This user already claim ${total} times`)
      .setTimestamp()
      .setColor("GREEN");
@@ -53,7 +54,7 @@ if(status == "off"){
   db.add(`claims.${message.author.id}` , 1);
   db.add(`claims.global` , 1);
 db.set(`timer.${message.author.id}`, Date.now());
-     message.channel.send(`${random_item(items)} <@${message.author.id}> earned **${process.env.usd}${reward_usd}** \n\n\`\`\`[ADVERTISEMENT SPACE]\`\`\`\n${ads_space}\nContact "**GameWatch21#9476**" for Renting`);
+     message.channel.send(`${random_item(items)} <@${message.author.id}> earned **${emoji_usd}${reward_usd}** \n\n\`\`\`[ADVERTISEMENT SPACE]\`\`\`\n${ads_space}\nContact "**GameWatch21#9476**" for Renting`);
        message.guild.channels.cache.get('789085255378272266').send(log);
        } 
     }

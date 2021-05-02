@@ -1,5 +1,5 @@
 {
-  "name": "Faucet Discord Bot By GameWatch21",
+  "name": "Faucet-Bot",
   "version": "1.0.5",
   "description": "Was a test project to make us a better coder",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon ./index.js"
   },
   "keywords": [],
   "author": "GameWatch21",
@@ -18,6 +18,7 @@
     "express": "^4.17.1",
     "node-cron": "^2.0.3",
     "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.7",
     "parse": "^2.17.0",
     "parse-ms": "^2.1.0",
     "quick.db": "^7.1.2",
