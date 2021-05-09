@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const db = require("quick.db");
-
+require('dotenv').config();
 
 module.exports = {
   name: "admin",

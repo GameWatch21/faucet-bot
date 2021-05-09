@@ -12,7 +12,7 @@ module.exports = {
     message.reply("You cant withdraw currency on DM")
   }
     const c_usd = db.fetch(`usd.${message.author.id}`) || 0;
-    const currencies = ["btc" , "satoshi" , "bitcoin" , "bitcoins" , "doge" , "dogecoin" , "beyondcoin" , "bynd" , "eth" , "gwei" , "ethereum" , "btt" , "bittorent" , "safe" , "allsafe" , "kanda" , "d" , "sats", "goat" , "goatcash" , "lbry" , "lbc" , "whale" ,"xdai"];
+    const currencies = ["btc" , "satoshi" , "bitcoin" , "bitcoins" , "doge" , "dogecoin" , "beyondcoin" , "bynd" , "eth" , "gwei" , "ethereum" , "btt" , "bittorent" , "safe" , "allsafe" , "kanda" , "d" , "sats", "goat" , "goatcash" , "lbry" , "lbc" , "whale" ,"xdai", "wax", "monero", "xmr"];
     
     const amount = args[0];
     const currency = args[1];
@@ -22,7 +22,7 @@ module.exports = {
       
    if(message.channel.type == "text"){
     if(!amount){ 
-      message.channel.send("Use `f!withdraw [AMOUNT] [CURRENCY]`\nAvailable Currencies:\n•DOGE\n•XDAI\n•KANDA\n•BYND\n•BTC\n•SAFE\n•GOAT\n•WHALE\n•LBC");
+      message.channel.send("Use `f!withdraw [AMOUNT] [CURRENCY]`\nAvailable Currencies:\n•DOGE\n•XDAI\n•KANDA\n•BYND\n•BTC\n•SAFE\n•GOAT\n•WHALE\n•LBC\n•WAX");
       }
 
  else if(!currency){
@@ -30,7 +30,7 @@ module.exports = {
      }
 
      if(!currencies.includes(currency.toLowerCase())){
-      message.channel.send(`Invalid Currency!\n\nWe only support these currency:\n\`\`\`\nBTC\nDOGE\nKANDA\nXDAI\nETH\nSAFE\nGOAT\nBTT\nBYND\nGOAT\nLBC\nWHALE\n\`\`\``)
+      message.channel.send(`Invalid Currency!\n\nWe only support these currency:\n\`\`\`\nBTC\nDOGE\nKANDA\nXDAI\nETH\nSAFE\nGOAT\nBTT\nBYND\nGOAT\nLBC\nWHALE\nWAX\n\`\`\``)
      }
      else if(currencies.includes(currency.toLowerCase())){
      const all = db.fetch(`usd.${message.author.id}`) || 0;
